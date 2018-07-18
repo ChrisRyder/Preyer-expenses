@@ -448,7 +448,7 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 print("error calling GET on \(payors_URL)")
                 print(JSON(json)["message"])
                 return
-                
+            
             }
             for (_,subJson):(String, JSON) in JSON(json) {
                 let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
