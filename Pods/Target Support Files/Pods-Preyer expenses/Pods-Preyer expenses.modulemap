@@ -1,0 +1,6 @@
+framework module Pods_Preyer_expenses {
+  umbrella header "Pods-Preyer expenses-umbrella.h"
+
+  export *
+  module * { export * }
+}

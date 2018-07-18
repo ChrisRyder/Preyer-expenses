@@ -1,0 +1,776 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E42C6B447394F84297FCE6C /* Pods_Preyer_expensesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6945906572D75B99A102C51B /* Pods_Preyer_expensesUITests.framework */; };
+		279EB052B607DD894E35F224 /* Pods_Preyer_expenses.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCE2AA979B0D226C2BE0C98 /* Pods_Preyer_expenses.framework */; };
+		6EF78A1FB07ADC498C881220 /* Pods_Preyer_expensesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F0C1DB94035B525B0BC4A9 /* Pods_Preyer_expensesTests.framework */; };
+		833876A320FCA1F200610CE8 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833876A220FCA1F200610CE8 /* loginViewController.swift */; };
+		8338833820E4D74700FB9911 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338833720E4D74700FB9911 /* AppDelegate.swift */; };
+		8338833A20E4D74700FB9911 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338833920E4D74700FB9911 /* MasterViewController.swift */; };
+		8338833C20E4D74700FB9911 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338833B20E4D74700FB9911 /* DetailViewController.swift */; };
+		8338833F20E4D74700FB9911 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8338833D20E4D74700FB9911 /* Main.storyboard */; };
+		8338834120E4D74800FB9911 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8338834020E4D74800FB9911 /* Assets.xcassets */; };
+		8338834420E4D74800FB9911 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8338834220E4D74800FB9911 /* LaunchScreen.storyboard */; };
+		8338834F20E4D74800FB9911 /* Preyer_expensesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338834E20E4D74800FB9911 /* Preyer_expensesTests.swift */; };
+		8338835A20E4D74800FB9911 /* Preyer_expensesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338835920E4D74800FB9911 /* Preyer_expensesUITests.swift */; };
+		8366A98A20E4F83700C41254 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98920E4F83700C41254 /* Trip.swift */; };
+		8366A98C20E4F8B300C41254 /* Partners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98B20E4F8B300C41254 /* Partners.swift */; };
+		8366A98E20E4F90800C41254 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98D20E4F90800C41254 /* Countries.swift */; };
+		8366A99020E4F9F600C41254 /* Receipts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98F20E4F9F600C41254 /* Receipts.swift */; };
+		8366A99220E4FA5C00C41254 /* TravelDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99120E4FA5C00C41254 /* TravelDays.swift */; };
+		8366A99420E4FAC600C41254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99320E4FAC600C41254 /* User.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8338834B20E4D74800FB9911 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8338832C20E4D74700FB9911 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8338833320E4D74700FB9911;
+			remoteInfo = "Preyer expenses";
+		};
+		8338835620E4D74800FB9911 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8338832C20E4D74700FB9911 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8338833320E4D74700FB9911;
+			remoteInfo = "Preyer expenses";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2BCA6B7107092EFAE15D9AF8 /* Pods-Preyer expensesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesTests/Pods-Preyer expensesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		61CC592A5FE41FF7AE05F68A /* Pods-Preyer expensesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesUITests/Pods-Preyer expensesUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		64F0C1DB94035B525B0BC4A9 /* Pods_Preyer_expensesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preyer_expensesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6945906572D75B99A102C51B /* Pods_Preyer_expensesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preyer_expensesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		833876A220FCA1F200610CE8 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		8338833420E4D74700FB9911 /* Preyer expenses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preyer expenses.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8338833720E4D74700FB9911 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8338833920E4D74700FB9911 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		8338833B20E4D74700FB9911 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8338833E20E4D74700FB9911 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8338834020E4D74800FB9911 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8338834320E4D74800FB9911 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8338834520E4D74800FB9911 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8338834A20E4D74800FB9911 /* Preyer expensesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Preyer expensesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8338834E20E4D74800FB9911 /* Preyer_expensesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preyer_expensesTests.swift; sourceTree = "<group>"; };
+		8338835020E4D74800FB9911 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8338835520E4D74800FB9911 /* Preyer expensesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Preyer expensesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8338835920E4D74800FB9911 /* Preyer_expensesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preyer_expensesUITests.swift; sourceTree = "<group>"; };
+		8338835B20E4D74800FB9911 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8366A98920E4F83700C41254 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		8366A98B20E4F8B300C41254 /* Partners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partners.swift; sourceTree = "<group>"; };
+		8366A98D20E4F90800C41254 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		8366A98F20E4F9F600C41254 /* Receipts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipts.swift; sourceTree = "<group>"; };
+		8366A99120E4FA5C00C41254 /* TravelDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDays.swift; sourceTree = "<group>"; };
+		8366A99320E4FAC600C41254 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesUITests/Pods-Preyer expensesUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C60D250EF9C3EDC63A8EB9EF /* Pods-Preyer expenses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expenses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses.debug.xcconfig"; sourceTree = "<group>"; };
+		D0C1AA99967390ED13190B9B /* Pods-Preyer expenses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expenses.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses.release.xcconfig"; sourceTree = "<group>"; };
+		DB1C9E91478CB7E7AD4FCEF8 /* Pods-Preyer expensesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesTests/Pods-Preyer expensesTests.release.xcconfig"; sourceTree = "<group>"; };
+		DDCE2AA979B0D226C2BE0C98 /* Pods_Preyer_expenses.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Preyer_expenses.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8338833120E4D74700FB9911 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				279EB052B607DD894E35F224 /* Pods_Preyer_expenses.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338834720E4D74800FB9911 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EF78A1FB07ADC498C881220 /* Pods_Preyer_expensesTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338835220E4D74800FB9911 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E42C6B447394F84297FCE6C /* Pods_Preyer_expensesUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		281BCCA964A8F005499F4D31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDCE2AA979B0D226C2BE0C98 /* Pods_Preyer_expenses.framework */,
+				64F0C1DB94035B525B0BC4A9 /* Pods_Preyer_expensesTests.framework */,
+				6945906572D75B99A102C51B /* Pods_Preyer_expensesUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A97D6B0E10740DF41704C65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C60D250EF9C3EDC63A8EB9EF /* Pods-Preyer expenses.debug.xcconfig */,
+				D0C1AA99967390ED13190B9B /* Pods-Preyer expenses.release.xcconfig */,
+				2BCA6B7107092EFAE15D9AF8 /* Pods-Preyer expensesTests.debug.xcconfig */,
+				DB1C9E91478CB7E7AD4FCEF8 /* Pods-Preyer expensesTests.release.xcconfig */,
+				61CC592A5FE41FF7AE05F68A /* Pods-Preyer expensesUITests.debug.xcconfig */,
+				B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8338832B20E4D74700FB9911 = {
+			isa = PBXGroup;
+			children = (
+				8338833620E4D74700FB9911 /* Preyer expenses */,
+				8338834D20E4D74800FB9911 /* Preyer expensesTests */,
+				8338835820E4D74800FB9911 /* Preyer expensesUITests */,
+				8338833520E4D74700FB9911 /* Products */,
+				2A97D6B0E10740DF41704C65 /* Pods */,
+				281BCCA964A8F005499F4D31 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8338833520E4D74700FB9911 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8338833420E4D74700FB9911 /* Preyer expenses.app */,
+				8338834A20E4D74800FB9911 /* Preyer expensesTests.xctest */,
+				8338835520E4D74800FB9911 /* Preyer expensesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8338833620E4D74700FB9911 /* Preyer expenses */ = {
+			isa = PBXGroup;
+			children = (
+				8366A98620E4D95000C41254 /* Views */,
+				8366A98520E4D93B00C41254 /* Controllers */,
+				8366A98420E4D93000C41254 /* Domain */,
+				8338833720E4D74700FB9911 /* AppDelegate.swift */,
+				8338834020E4D74800FB9911 /* Assets.xcassets */,
+				8338834520E4D74800FB9911 /* Info.plist */,
+			);
+			path = "Preyer expenses";
+			sourceTree = "<group>";
+		};
+		8338834D20E4D74800FB9911 /* Preyer expensesTests */ = {
+			isa = PBXGroup;
+			children = (
+				8338834E20E4D74800FB9911 /* Preyer_expensesTests.swift */,
+				8338835020E4D74800FB9911 /* Info.plist */,
+			);
+			path = "Preyer expensesTests";
+			sourceTree = "<group>";
+		};
+		8338835820E4D74800FB9911 /* Preyer expensesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8338835920E4D74800FB9911 /* Preyer_expensesUITests.swift */,
+				8338835B20E4D74800FB9911 /* Info.plist */,
+			);
+			path = "Preyer expensesUITests";
+			sourceTree = "<group>";
+		};
+		8366A98420E4D93000C41254 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				8366A98920E4F83700C41254 /* Trip.swift */,
+				8366A98B20E4F8B300C41254 /* Partners.swift */,
+				8366A98D20E4F90800C41254 /* Countries.swift */,
+				8366A98F20E4F9F600C41254 /* Receipts.swift */,
+				8366A99120E4FA5C00C41254 /* TravelDays.swift */,
+				8366A99320E4FAC600C41254 /* User.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		8366A98520E4D93B00C41254 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8338833920E4D74700FB9911 /* MasterViewController.swift */,
+				8338833B20E4D74700FB9911 /* DetailViewController.swift */,
+				833876A220FCA1F200610CE8 /* loginViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8366A98620E4D95000C41254 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8338834220E4D74800FB9911 /* LaunchScreen.storyboard */,
+				8338833D20E4D74700FB9911 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8338833320E4D74700FB9911 /* Preyer expenses */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8338835E20E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expenses" */;
+			buildPhases = (
+				0CEAC575E0EB77A326067AC4 /* [CP] Check Pods Manifest.lock */,
+				8338833020E4D74700FB9911 /* Sources */,
+				8338833120E4D74700FB9911 /* Frameworks */,
+				8338833220E4D74700FB9911 /* Resources */,
+				F375260E14EF5982958E5984 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Preyer expenses";
+			productName = "Preyer expenses";
+			productReference = 8338833420E4D74700FB9911 /* Preyer expenses.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8338834920E4D74800FB9911 /* Preyer expensesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8338836120E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expensesTests" */;
+			buildPhases = (
+				E1026FA61A0DA931099A424D /* [CP] Check Pods Manifest.lock */,
+				8338834620E4D74800FB9911 /* Sources */,
+				8338834720E4D74800FB9911 /* Frameworks */,
+				8338834820E4D74800FB9911 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8338834C20E4D74800FB9911 /* PBXTargetDependency */,
+			);
+			name = "Preyer expensesTests";
+			productName = "Preyer expensesTests";
+			productReference = 8338834A20E4D74800FB9911 /* Preyer expensesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8338835420E4D74800FB9911 /* Preyer expensesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8338836420E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expensesUITests" */;
+			buildPhases = (
+				426038B062BB998A35DB469D /* [CP] Check Pods Manifest.lock */,
+				8338835120E4D74800FB9911 /* Sources */,
+				8338835220E4D74800FB9911 /* Frameworks */,
+				8338835320E4D74800FB9911 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8338835720E4D74800FB9911 /* PBXTargetDependency */,
+			);
+			name = "Preyer expensesUITests";
+			productName = "Preyer expensesUITests";
+			productReference = 8338835520E4D74800FB9911 /* Preyer expensesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8338832C20E4D74700FB9911 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Preyer GmbH";
+				TargetAttributes = {
+					8338833320E4D74700FB9911 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					8338834920E4D74800FB9911 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 8338833320E4D74700FB9911;
+					};
+					8338835420E4D74800FB9911 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 8338833320E4D74700FB9911;
+					};
+				};
+			};
+			buildConfigurationList = 8338832F20E4D74700FB9911 /* Build configuration list for PBXProject "Preyer expenses" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8338832B20E4D74700FB9911;
+			productRefGroup = 8338833520E4D74700FB9911 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8338833320E4D74700FB9911 /* Preyer expenses */,
+				8338834920E4D74800FB9911 /* Preyer expensesTests */,
+				8338835420E4D74800FB9911 /* Preyer expensesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8338833220E4D74700FB9911 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8338834420E4D74800FB9911 /* LaunchScreen.storyboard in Resources */,
+				8338834120E4D74800FB9911 /* Assets.xcassets in Resources */,
+				8338833F20E4D74700FB9911 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338834820E4D74800FB9911 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338835320E4D74800FB9911 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CEAC575E0EB77A326067AC4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Preyer expenses-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		426038B062BB998A35DB469D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Preyer expensesUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1026FA61A0DA931099A424D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Preyer expensesTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F375260E14EF5982958E5984 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/KeyStorage/KeyStorage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyStorage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8338833020E4D74700FB9911 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8366A99020E4F9F600C41254 /* Receipts.swift in Sources */,
+				8366A98A20E4F83700C41254 /* Trip.swift in Sources */,
+				8366A99220E4FA5C00C41254 /* TravelDays.swift in Sources */,
+				8338833C20E4D74700FB9911 /* DetailViewController.swift in Sources */,
+				833876A320FCA1F200610CE8 /* loginViewController.swift in Sources */,
+				8338833A20E4D74700FB9911 /* MasterViewController.swift in Sources */,
+				8366A99420E4FAC600C41254 /* User.swift in Sources */,
+				8366A98C20E4F8B300C41254 /* Partners.swift in Sources */,
+				8366A98E20E4F90800C41254 /* Countries.swift in Sources */,
+				8338833820E4D74700FB9911 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338834620E4D74800FB9911 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8338834F20E4D74800FB9911 /* Preyer_expensesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338835120E4D74800FB9911 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8338835A20E4D74800FB9911 /* Preyer_expensesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8338834C20E4D74800FB9911 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8338833320E4D74700FB9911 /* Preyer expenses */;
+			targetProxy = 8338834B20E4D74800FB9911 /* PBXContainerItemProxy */;
+		};
+		8338835720E4D74800FB9911 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8338833320E4D74700FB9911 /* Preyer expenses */;
+			targetProxy = 8338835620E4D74800FB9911 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8338833D20E4D74700FB9911 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8338833E20E4D74700FB9911 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8338834220E4D74800FB9911 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8338834320E4D74800FB9911 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8338835C20E4D74800FB9911 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8338835D20E4D74800FB9911 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8338835F20E4D74800FB9911 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C60D250EF9C3EDC63A8EB9EF /* Pods-Preyer expenses.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expenses/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expenses";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8338836020E4D74800FB9911 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0C1AA99967390ED13190B9B /* Pods-Preyer expenses.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expenses/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expenses";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8338836220E4D74800FB9911 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BCA6B7107092EFAE15D9AF8 /* Pods-Preyer expensesTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expensesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expensesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Preyer expenses.app/Preyer expenses";
+			};
+			name = Debug;
+		};
+		8338836320E4D74800FB9911 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB1C9E91478CB7E7AD4FCEF8 /* Pods-Preyer expensesTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expensesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expensesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Preyer expenses.app/Preyer expenses";
+			};
+			name = Release;
+		};
+		8338836520E4D74800FB9911 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61CC592A5FE41FF7AE05F68A /* Pods-Preyer expensesUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expensesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expensesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Preyer expenses";
+			};
+			name = Debug;
+		};
+		8338836620E4D74800FB9911 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CAZG8WL4V8;
+				INFOPLIST_FILE = "Preyer expensesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.preyer.Preyer-expensesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Preyer expenses";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8338832F20E4D74700FB9911 /* Build configuration list for PBXProject "Preyer expenses" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338835C20E4D74800FB9911 /* Debug */,
+				8338835D20E4D74800FB9911 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8338835E20E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expenses" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338835F20E4D74800FB9911 /* Debug */,
+				8338836020E4D74800FB9911 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8338836120E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expensesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338836220E4D74800FB9911 /* Debug */,
+				8338836320E4D74800FB9911 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8338836420E4D74800FB9911 /* Build configuration list for PBXNativeTarget "Preyer expensesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338836520E4D74800FB9911 /* Debug */,
+				8338836620E4D74800FB9911 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8338832C20E4D74700FB9911 /* Project object */;
+}
