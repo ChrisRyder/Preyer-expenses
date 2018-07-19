@@ -381,14 +381,17 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
             }
             
             
+            
             for (_,subJson):(String, JSON) in JSON(json) {
-                let country = Country(id: subJson["id"].int!, cty: subJson["cty"].string!, name: subJson["name"].string!)
+                let country = Country(json: subJson)
                 countries.append(country)
             }
         }
@@ -419,12 +422,27 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
             }
+            
             for (_,subJson):(String, JSON) in JSON(json) {
-                let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
+                let client = subJson["client"].null == NSNull()  ? false : subJson["client"].bool!
+                let costCenter = subJson["costCenter"].null == NSNull()  ? false : subJson["costCenter"].bool!
+                    
+                
+                
+                
+                let partner : Partner = Partner(id: subJson["id"].int!,
+                                                par: subJson["par"].string!,
+                                                name: subJson["name"].string!,
+                                                payor: subJson["payor"].bool!,
+                                                client: client,
+                                                costCenter: costCenter
+                    )
                 
                 payors.append(partner)
                 

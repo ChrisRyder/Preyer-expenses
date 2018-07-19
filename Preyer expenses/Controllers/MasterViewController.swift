@@ -136,19 +136,22 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         let trip = trips[indexPath.row]
   //      print(trip.infoText)
   //      print(trip.payor)
- 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY.MM.dd"
+        let fromDate : String = formatter.string(from: trip.beginning!)
+        formatter.dateFormat = "MM.dd"
+        let toDate : String = formatter.string(from: trip.ending!)
+        var payorName : String = "No Payor"
         if let payorIndex = trip.payor {
-            print("payorIndex:" + String(payorIndex))
             if (payorIndex > 0 && payors.count > 0) {
                 let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!
-                cell.textLabel?.text! = payor.name + ": " + trip.infoText
+                payorName = payor.name
             } else {
-                cell.textLabel?.text! = "0 Payor" + ": " + trip.infoText
+                payorName = "0 Payor"
             }
-        } else  {
-            cell.textLabel?.text! = "No Payor" + ": " + trip.infoText
         }
-     
+        
+        cell.textLabel?.text! =  "\(fromDate) - \(toDate) :  \(payorName)"
         cell.detailTextLabel?.text! = trip.reason
         return cell
     }
@@ -306,21 +309,16 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
             }
             
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
             }
                 for (_,subJson):(String, JSON) in JSON(json) {
                     print("---------")
                     print("payor: \(subJson["payor"]["id"].int!)")
-                    let beginning : Date? = subJson["beginning"].date
-                    let ending : Date? = subJson["ending"].date
-                    let trip : Trip = Trip(id: subJson["id"].int!, infoText: subJson["infoText"].string!, reason: subJson["reason"].string!)
-                    trip.beginning = beginning
-                    trip.ending = ending
-                    trip.payor = subJson["payor"]["id"].int!
-                    trip.costCenter   = subJson["costCenter"]["id"].int!
-                    trip.countries   = subJson["countries"]["id"].int!
+                    let trip : Trip = Trip(json: subJson)
                     self.trips.append(trip)//(trip, at: 0)
                     self.tableView.insertRows(at: [IndexPath(row: self.trips.count-1, section: 0)], with: .automatic)
   
@@ -357,14 +355,15 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 return
             }
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
             }
-            
        
             for (_,subJson):(String, JSON) in JSON(json) {
-                let country = Country(id: subJson["id"].int!, cty: subJson["cty"].string!, name: subJson["name"].string!)
+                let country = Country(json: subJson)
                 countries.append(country)
             }
             
@@ -397,8 +396,10 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 return
             }
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
             }
                 for (_,subJson):(String, JSON) in JSON(json) {
@@ -440,15 +441,11 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 return
             }
             print("JSON: \(json)") // serialized json response
-            if JSON(json)["error"] == "Unauthorized" {
-                print("Unauthorized")
+            let jsonError=JSON(json)["error"]
+            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
                 return
-            }
-            guard JSON(json)["error"] == "500" else {
-                print("error calling GET on \(payors_URL)")
-                print(JSON(json)["message"])
-                return
-            
             }
             for (_,subJson):(String, JSON) in JSON(json) {
                 let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
