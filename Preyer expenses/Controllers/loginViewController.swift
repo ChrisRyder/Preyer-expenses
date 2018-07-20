@@ -147,11 +147,11 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     @objc func keyboardWillShow(notification: NSNotification) {
-        let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! Double
-        let curve = notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! UInt
-        let curFrame = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        let targetFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let deltaY = targetFrame.origin.y - curFrame.origin.y
+//        let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! Double
+//        let curve = notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! UInt
+//        let curFrame = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+//        let targetFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+//        let deltaY = targetFrame.origin.y - curFrame.origin.y
 //        print("duration: \(duration)")
 //        print("curve: \(curve)")
 //        print("curFrame: \(curFrame)")
