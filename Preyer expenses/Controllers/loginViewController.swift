@@ -152,13 +152,13 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         let curFrame = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let targetFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let deltaY = targetFrame.origin.y - curFrame.origin.y
-        print("duration: \(duration)")
-        print("curve: \(curve)")
-        print("curFrame: \(curFrame)")
-        print("targetFrame: \(targetFrame)")
-        print("deltaY: \(deltaY)")
+//        print("duration: \(duration)")
+//        print("curve: \(curve)")
+//        print("curFrame: \(curFrame)")
+//        print("targetFrame: \(targetFrame)")
+//        print("deltaY: \(deltaY)")
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-             print ("keyboardWillShow: Keyboard =\(keyboardSize)")
+//             print ("keyboardWillShow: Keyboard =\(keyboardSize)")
 
             self.signinButton.frame.origin.y = self.view.frame.height - keyboardSize.height - self.signinButton.frame.height
             self.signinButton.frame.size =  CGSize(width: self.view.frame.width, height: self.signinButton.frame.height)
@@ -179,13 +179,13 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         let curFrame = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let targetFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let deltaY = targetFrame.origin.y - curFrame.origin.y
-        print("duration: \(duration)")
-        print("curve: \(curve)")
-        print("curFrame: \(curFrame)")
-        print("targetFrame: \(targetFrame)")
-        print("deltaY: \(deltaY)")
+//        print("duration: \(duration)")
+//        print("curve: \(curve)")
+//        print("curFrame: \(curFrame)")
+//        print("targetFrame: \(targetFrame)")
+//        print("deltaY: \(deltaY)")
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print ("keyboardWillHide: Keyboard =\(keyboardSize)")
+//            print ("keyboardWillHide: Keyboard =\(keyboardSize)")
 
             self.signinButton.frame.origin.y = self.view.frame.height - self.signinButton.frame.height
             self.signinButton.frame.size =  CGSize(width: self.view.frame.width, height: self.signinButton.frame.height)
@@ -249,12 +249,12 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let login_URL = "/api/login"
         let credentials: [String: Any] = ["username": username, "password": password]
-        print(credentials)
+//        print(credentials)
         activityIndicator.startAnimating()
         Alamofire.request(BASE_APP_URL+login_URL, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseJSON  { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
             self.activityIndicator.stopAnimating()
             switch response.result {
             case .success(let value):
@@ -288,12 +288,12 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 token = accessToken
                 refresh_token = refreshToken
                 
-                print ("AccessToken: \(accessToken)")
-                print ("refreshToken: \(refreshToken)")
-                print("logon successful")
+//                print ("AccessToken: \(accessToken)")
+//                print ("refreshToken: \(refreshToken)")
+//                print("logon successful")
                 self.activityIndicator.startAnimating()
                 self.getCountries()
-                self.getPayors()
+  //              self.getPayors()
                 self.activityIndicator.stopAnimating()
                 completionHandler(accessToken, refreshToken, false)
             case .failure(_ ):
@@ -308,9 +308,9 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         let rest_auth = "/oauth/access_token"
         let params : [String: Any] = ["grant_type": "refresh_token", "refresh_token": refresh_token]
         Alamofire.request(BASE_APP_URL+rest_auth, method: .post, parameters: params).responseJSON  { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
             switch response.result {
             case .success(let value):
                 guard response.result.error == nil else {
@@ -341,11 +341,12 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                print ("AccessToken: \(accessToken)")
-                print ("refreshToken: \(refreshToken)")
-                print("logon successful")
-                if countries.count == 0 { self.getCountries() }
-                if payors.count == 0 { self.getPayors() }
+//                print ("AccessToken: \(accessToken)")
+//                print ("refreshToken: \(refreshToken)")
+//                print("logon successful")
+                if countryList.count == 0 { self.getCountries() }
+                if partners.count == 0 { self.getPartners() }
+//                if payors.count == 0 { self.getPayors() }
                 
                 completionHandler(accessToken, refreshToken, nil)
             case .failure(_ ):
@@ -362,10 +363,10 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
             "Content-Type": "application/X-Access-Token"
         ]
         Alamofire.request(BASE_APP_URL+countries_URL , headers: headers).responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            print("Result: \(String(describing: response.result.value))")                         // response serialization result
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
+//            print("Result: \(String(describing: response.result.value))")                         // response serialization result
             guard response.result.error == nil else {
                 print("error calling GET on \(countries_URL)")
                 print(response.result.error!)
@@ -380,9 +381,9 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
-            print("JSON: \(json)") // serialized json response
+//            print("JSON: \(json)") // serialized json response
             let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
+//            print("\(jsonError)")
             if jsonError == "Unauthorized" || jsonError == "500" {
                 print("JSON: \(json)") // serialized json response
                 return
@@ -392,11 +393,55 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
             
             for (_,subJson):(String, JSON) in JSON(json) {
                 let country = Country(json: subJson)
-                countries.append(country)
+                countryList.append(country)
             }
         }
     }
+    func getPartners() {
+        let partnersURL = "/api/partners"
+
+        let headers = [
+            "Authorization": "Bearer \(token)",
+            "Content-Type": "application/X-Access-Token"
+        ]
+        Alamofire.request(BASE_APP_URL+partnersURL , headers: headers).responseJSON { response in
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
+            guard response.result.error == nil else {
+                print("error calling GET on \(partnersURL)")
+                print(response.result.error!)
+                return
+                
+            }
+            // make sure we got some JSON since that's what we expect
+            guard let json = response.result.value  else {
+                print("pasrtners: didn't get object as JSON from API")
+                if let error = response.result.error {
+                    print("Error: \(error)")
+                }
+                return
+            }
+//            print("JSON: \(json)") // serialized json response
+            let jsonError=JSON(json)["error"]
+//            print("\(jsonError)")
+            if jsonError == "Unauthorized" || jsonError == "500" {
+                print("JSON: \(json)") // serialized json response
+                return
+            }
+            for (_,subJson):(String, JSON) in JSON(json) {
+                let partner : Partner = Partner(json: subJson)
+                
+                partners.append(partner)
+                if partner.payor! {
+                    payors.append(partner)
+                }
+            }
+            
+            
+        }
         
+    }
     func getPayors() {
         let payors_URL = "/api/partners/findAllByPayor"
         let headers = [
@@ -421,28 +466,16 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
-            print("JSON: \(json)") // serialized json response
+//            print("JSON: \(json)") // serialized json response
             let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
+//            print("\(jsonError)")
             if jsonError == "Unauthorized" || jsonError == "500" {
                 print("JSON: \(json)") // serialized json response
                 return
             }
             
             for (_,subJson):(String, JSON) in JSON(json) {
-                let client = subJson["client"].null == NSNull()  ? false : subJson["client"].bool!
-                let costCenter = subJson["costCenter"].null == NSNull()  ? false : subJson["costCenter"].bool!
-                    
-                
-                
-                
-                let partner : Partner = Partner(id: subJson["id"].int!,
-                                                par: subJson["par"].string!,
-                                                name: subJson["name"].string!,
-                                                payor: subJson["payor"].bool!,
-                                                client: client,
-                                                costCenter: costCenter
-                    )
+                let partner : Partner = Partner(json: subJson)
                 
                 payors.append(partner)
                 

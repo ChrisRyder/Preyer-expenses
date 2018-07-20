@@ -28,7 +28,7 @@ extension JSON {
         return dateFormatter
     }()
 }
-var countries = [Country]()
+var countryList = [Country]()
 var partners = [Partner]()
 var payors = [Partner]()
 
@@ -142,7 +142,7 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         formatter.dateFormat = "MM.dd"
         let toDate : String = formatter.string(from: trip.ending!)
         var payorName : String = "No Payor"
-        if let payorIndex = trip.payor {
+        if let payorIndex = trip.payor?.id {
             if (payorIndex > 0 && payors.count > 0) {
                 let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!
                 payorName = payor.name
@@ -153,6 +153,7 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         
         cell.textLabel?.text! =  "\(fromDate) - \(toDate) :  \(payorName)"
         cell.detailTextLabel?.text! = trip.reason
+ 
         return cell
     }
 
@@ -220,12 +221,16 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
             print ("AccessToken: \(accessToken)")
             print ("refreshToken: \(refreshToken)")
             print("logon successful")
-            if countries.count == 0 {
+            if countryList.count == 0 {
                 self.getCountries()
+            }
+            if partners.count == 0 {
+                self.getPartners()
             }
             if payors.count == 0 {
                 self.getPayors()
             }
+            
             if self.trips.count == 0 {
                 self.getTrips()
             }
@@ -269,12 +274,15 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
             print ("AccessToken: \(accessToken)")
             print ("refreshToken: \(refreshToken)")
             print("logon successful")
-            if countries.count == 0 {
+            if countryList.count == 0 {
                 self.getCountries()
             }
-            if payors.count == 0 {
-                self.getPayors()
+            if partners.count == 0 {
+                self.getPartners()
             }
+ //           if payors.count == 0 {
+   //             self.getPayors()
+     //       }
             if self.trips.count == 0 {
                 self.getTrips()
             }
@@ -316,8 +324,8 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 return
             }
                 for (_,subJson):(String, JSON) in JSON(json) {
-                    print("---------")
-                    print("payor: \(subJson["payor"]["id"].int!)")
+                    //print("---------")
+                    //print("payor: \(subJson["payor"]["id"].int!)")
                     let trip : Trip = Trip(json: subJson)
                     self.trips.append(trip)//(trip, at: 0)
                     self.tableView.insertRows(at: [IndexPath(row: self.trips.count-1, section: 0)], with: .automatic)
@@ -336,10 +344,10 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
             "Content-Type": "application/X-Access-Token"
         ]
         Alamofire.request(BASE_APP_URL+countries_URL , headers: headers).responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            print("Result: \(String(describing: response.result.value))")                         // response serialization result
+            // print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
+//            print("Result: \(String(describing: response.result.value))")                         // response serialization result
             guard response.result.error == nil else {
                 print("error calling GET on \(countries_URL)")
                 print(response.result.error!)
@@ -364,25 +372,26 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
        
             for (_,subJson):(String, JSON) in JSON(json) {
                 let country = Country(json: subJson)
-                countries.append(country)
+                countryList.append(country)
             }
             
             
         }
         
     }
-    func getPartners(url: String) {
-
+    func getPartners() {
+        let partnersURL = "/api/partners"
+        
         let headers = [
             "Authorization": "Bearer \(token)",
             "Content-Type": "application/X-Access-Token"
         ]
-        Alamofire.request(url , headers: headers).responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+        Alamofire.request(BASE_APP_URL+partnersURL , headers: headers).responseJSON { response in
+//            print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
             guard response.result.error == nil else {
-                print("error calling GET on \(url)")
+                print("error calling GET on \(partnersURL)")
                 print(response.result.error!)
                 return
                 
@@ -395,15 +404,15 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 }
                 return
             }
-            print("JSON: \(json)") // serialized json response
+//            print("JSON: \(json)") // serialized json response
             let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
+//            print("\(jsonError)")
             if jsonError == "Unauthorized" || jsonError == "500" {
                 print("JSON: \(json)") // serialized json response
                 return
             }
                 for (_,subJson):(String, JSON) in JSON(json) {
-                    let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
+                    let partner : Partner = Partner(json: subJson)
                     
                     partners.append(partner)
                     if partner.payor! {
@@ -423,9 +432,9 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         ]
         print (headers)
         Alamofire.request(BASE_APP_URL+payors_URL , headers: headers).responseJSON { response in
-           print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+//           print("Request: \(String(describing: response.request))")   // original url request
+//            print("Response: \(String(describing: response.response))") // http url response
+//            print("Result: \(response.result)")                         // response serialization result
             guard response.result.error == nil else {
                 print("error calling GET on \(payors_URL)")
                 print(response.result.error!)
@@ -440,15 +449,15 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
                 }
                 return
             }
-            print("JSON: \(json)") // serialized json response
+//            print("JSON: \(json)") // serialized json response
             let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
+//            print("\(jsonError)")
             if jsonError == "Unauthorized" || jsonError == "500" {
                 print("JSON: \(json)") // serialized json response
                 return
             }
             for (_,subJson):(String, JSON) in JSON(json) {
-                let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
+                let partner : Partner = Partner(json: subJson)
                 
                 payors.append(partner)
                 

@@ -9,12 +9,28 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Preyer expenses/Domain/Trip.swift"
-            timestampString = "553693374.275962"
+            filePath = "Preyer expenses/Controllers/MasterViewController.swift"
+            timestampString = "553799529.345701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
+            landmarkName = "getPartners()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Preyer expenses/Domain/Partners.swift"
+            timestampString = "553799529.346751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "init(json:)"
             landmarkType = "7">
          </BreakpointContent>
