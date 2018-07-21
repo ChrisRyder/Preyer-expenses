@@ -10,6 +10,7 @@ target 'Preyer expenses' do
 	pod 'Alamofire'
 	pod 'KeyStorage'
 	pod 'Eureka'
+    pod 'RealmSwift'
 
   target 'Preyer expensesTests' do
     inherit! :search_paths

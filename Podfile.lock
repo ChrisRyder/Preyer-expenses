@@ -2,12 +2,18 @@ PODS:
   - Alamofire (4.7.2)
   - Eureka (4.1.1)
   - KeyStorage (0.2.1)
+  - Realm (3.7.4):
+    - Realm/Headers (= 3.7.4)
+  - Realm/Headers (3.7.4)
+  - RealmSwift (3.7.4):
+    - Realm (= 3.7.4)
   - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - Eureka
   - KeyStorage
+  - RealmSwift
   - SwiftyJSON
 
 SPEC REPOS:
@@ -15,14 +21,18 @@ SPEC REPOS:
     - Alamofire
     - Eureka
     - KeyStorage
+    - Realm
+    - RealmSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
   KeyStorage: 88fad4b96a4e75568f36ff408b46504977b976be
+  Realm: a469bb59e33f9926102ccaea4349822c53b9117e
+  RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 0eab528b04f507c19aa36525477d8d8f8d4f0350
+PODFILE CHECKSUM: 8cb5a07bb855a302c63baf0fea64c88040a6a211
 
 COCOAPODS: 1.5.3

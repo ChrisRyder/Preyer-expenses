@@ -7,23 +7,23 @@
 //
 
 import Foundation
-import SwiftyJSON
+import RealmSwift
 
-class Trip {
-    var beginning : Date?
-    var costCenter : Int?
-    var countries : Int?
-    var ending  : Date?
-    var exports : Bool?
-    let id : Int
-    var infoText :String
-    var payor : Int?
-    var reason : String
-    var receipts  : [Receipts]?
-    var travelDays : [TravelDays]?
-    var upfront : Float = 0
-    var user : Int?
-
+class Trip : Object , Uploadable { 
+    @objc dynamic var id : Int = 0
+    @objc dynamic var  beginning : Date?
+    @objc dynamic var  ending  : Date?
+    @objc dynamic var  exports : Int = 0
+    @objc dynamic var  infoText : String = String()
+    @objc dynamic var  reason : String = String()
+    @objc dynamic var  upfront : Float = 0
+    var  costCenter : Partner?
+    var  country : Country?
+    var  payor : Partner?
+    let  receipts = List<Receipt>()
+    let  travelDays = List<TravelDay>()
+    var user : User?
+/*
     init(id: Int, infoText: String, reason: String,beginning : Date, ending : Date, payor: Int, costCenter: Int, countries: Int) {
         self.id = id
         self.infoText = infoText
@@ -46,5 +46,12 @@ class Trip {
         let countries   = (json["countries"].null == NSNull()) ? 0 : (json["countries"]["id"].null == NSNull()) ? 0 : json["countries"]["id"].int!
         self.init(id: id, infoText: infoText, reason: reason,beginning : beginning!, ending : ending!, payor: payor, costCenter: costCenter, countries: countries)
     }
+  */
+    override static func primaryKey() -> String? {
+        return "id"
+    }
     
+    static var resourceURL: URL {
+        return URL(string: "\(BASE_APP_URL)/api/trips")!
+    }
 }

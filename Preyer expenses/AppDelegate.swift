@@ -7,6 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
+import Alamofire
+import SwiftyJSON
+
+
+// TODO:  PUT THESE IN THE CONFIG SHEET
+var username : String = ""
+var password : String = ""
+var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
+var token : String =  ""
+var refresh_token : String = ""
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -16,7 +28,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        let realm = try! Realm()
+ //       if refresh_token == "" {
+ //           doLogin() { access_token, reauth_token, error in
+                // use tokens and error here
+  //              if error! {
+  //                  print ("error")
+  //                  self.errmsg.text = "login unsuccessful"
+  //                 self.errmsg.isHidden = false
+  //              } else {
+  //                  self.dismiss(animated: true)
+  //                  self.delegate?.signin(loginViewController: self,accessToken: access_token!, refreshToken: reauth_token!)
+  //              }
+                
+  //              return
+  //          }
+  //      } else {
+  //          doReAuthorize() { access_token, reauth_token, error in
+                // use tokens and error here
+  //              if error! {
+   //                 print ("error")
+   //             } else {
+  //                  self.dismiss(animated: true)
+    //                self.delegate?.signin(loginViewController: self,accessToken: access_token!, refreshToken: reauth_token!)
+   //             }
+   //             return
+   //         }
+   //     }
         
         let splitViewController = window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
@@ -59,5 +97,111 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return false
     }
 
+}
+
+extension AppDelegate {
+    
+    func doLogin ( completionHandler: @escaping (String? ,String?, Bool?) -> ())  {
+        
+        let login_URL = "\(BASE_APP_URL)/api/login"
+        let credentials: [String: Any] = ["username": username.lowercased(), "password": password]
+
+
+        Alamofire.request(login_URL, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseJSON  { response in
+            print("Request: \(String(describing: response.request))")   // original url request
+            print("Response: \(String(describing: response.response))") // http url response
+            print("Result: \(response.result)")                         // response serialization result
+            switch response.result {
+            case .success(let value):
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error calling POST on /api/login")
+                    print(response.result.error!)
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                // make sure we got some JSON since that's what we expect
+                guard let json = value as? [String: Any] else {
+                    print("didn't get user object as JSON from API")
+                    if let error = response.result.error {
+                        print("Error: \(error)")
+                    }
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                // get and print the title
+                guard let accessToken = json["access_token"] as? String else {
+                    print("Could not get access_token number from JSON")
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                guard let refreshToken = json["refresh_token"] as? String else {
+                    print("Could not get refresh_token number from JSON")
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                token = accessToken
+                refresh_token = refreshToken
+                
+                print ("AccessToken: \(accessToken)")
+                print ("refreshToken: \(refreshToken)")
+                print("logon successful")
+                
+                completionHandler(accessToken, refreshToken, false)
+            case .failure(_ ):
+                completionHandler(nil, nil, true)
+            }
+            
+        }
+        
+    }
+    
+    func doReAuthorize (completionHandler: @escaping (String? ,String?, Bool?) -> ())  {
+        let rest_auth = "\(BASE_APP_URL)/oauth/access_token"
+        let params : [String: Any] = ["grant_type": "refresh_token", "refresh_token": refresh_token]
+        Alamofire.request(rest_auth, method: .post, parameters: params).responseJSON  { response in
+            print("Request: \(String(describing: response.request))")   // original url request
+            print("Response: \(String(describing: response.response))") // http url response
+            print("Result: \(response.result)")                         // response serialization result
+            switch response.result {
+            case .success(let value):
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error calling POST on /api/login")
+                    print(response.result.error!)
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                // make sure we got some JSON since that's what we expect
+                guard let json = value as? [String: Any] else {
+                    print("didn't get user object as JSON from API")
+                    if let error = response.result.error {
+                        print("Error: \(error)")
+                    }
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                // get and print the title
+                guard let accessToken = json["access_token"] as? String else {
+                    print("Could not get access_token number from JSON")
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                guard let refreshToken = json["refresh_token"] as? String else {
+                    print("Could not get refresh_token number from JSON")
+                    completionHandler(nil, nil, true)
+                    return
+                }
+                
+                print ("AccessToken: \(accessToken)")
+                print ("refreshToken: \(refreshToken)")
+                print("logon successful")
+ 
+                completionHandler(accessToken, refreshToken, nil)
+            case .failure(_ ):
+                completionHandler(nil, nil, false)
+            }
+        }
+    }
 }
 

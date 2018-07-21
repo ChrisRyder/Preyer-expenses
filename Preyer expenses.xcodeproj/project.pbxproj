@@ -19,11 +19,24 @@
 		8338834420E4D74800FB9911 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8338834220E4D74800FB9911 /* LaunchScreen.storyboard */; };
 		8338834F20E4D74800FB9911 /* Preyer_expensesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338834E20E4D74800FB9911 /* Preyer_expensesTests.swift */; };
 		8338835A20E4D74800FB9911 /* Preyer_expensesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338835920E4D74800FB9911 /* Preyer_expensesUITests.swift */; };
+		833AAE0D210356B500E779B1 /* ReceiptType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE0C210356B500E779B1 /* ReceiptType.swift */; };
+		833AAE0F2103592500E779B1 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE0E2103592500E779B1 /* Currency.swift */; };
+		833AAE11210359BF00E779B1 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE10210359BF00E779B1 /* PaymentType.swift */; };
+		833AAE1321035A0900E779B1 /* InputTaxType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1221035A0900E779B1 /* InputTaxType.swift */; };
+		833AAE1521035AC700E779B1 /* CCyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1421035AC700E779B1 /* CCyRate.swift */; };
+		833AAE1721035C0200E779B1 /* Reduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1621035C0200E779B1 /* Reduction.swift */; };
+		833AAE1921035CB400E779B1 /* ReductionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1821035CB400E779B1 /* ReductionType.swift */; };
+		833AAE1B21035E1A00E779B1 /* SettlementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1A21035E1A00E779B1 /* SettlementType.swift */; };
+		833AAE1D21035E8D00E779B1 /* TravelCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1C21035E8D00E779B1 /* TravelCost.swift */; };
+		833AAE1F2103602500E779B1 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE1E2103602500E779B1 /* Food.swift */; };
+		833AAE21210360B000E779B1 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE20210360B000E779B1 /* Vehicle.swift */; };
+		833AAE2321036BEF00E779B1 /* Accomodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE2221036BEF00E779B1 /* Accomodation.swift */; };
+		833AAE25210377B900E779B1 /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833AAE24210377B900E779B1 /* Uploadable.swift */; };
 		8366A98A20E4F83700C41254 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98920E4F83700C41254 /* Trip.swift */; };
-		8366A98C20E4F8B300C41254 /* Partners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98B20E4F8B300C41254 /* Partners.swift */; };
-		8366A98E20E4F90800C41254 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98D20E4F90800C41254 /* Countries.swift */; };
-		8366A99020E4F9F600C41254 /* Receipts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98F20E4F9F600C41254 /* Receipts.swift */; };
-		8366A99220E4FA5C00C41254 /* TravelDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99120E4FA5C00C41254 /* TravelDays.swift */; };
+		8366A98C20E4F8B300C41254 /* Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98B20E4F8B300C41254 /* Partner.swift */; };
+		8366A98E20E4F90800C41254 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98D20E4F90800C41254 /* Country.swift */; };
+		8366A99020E4F9F600C41254 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98F20E4F9F600C41254 /* Receipt.swift */; };
+		8366A99220E4FA5C00C41254 /* TravelDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99120E4FA5C00C41254 /* TravelDay.swift */; };
 		8366A99420E4FAC600C41254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99320E4FAC600C41254 /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,11 +77,24 @@
 		8338835520E4D74800FB9911 /* Preyer expensesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Preyer expensesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8338835920E4D74800FB9911 /* Preyer_expensesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preyer_expensesUITests.swift; sourceTree = "<group>"; };
 		8338835B20E4D74800FB9911 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		833AAE0C210356B500E779B1 /* ReceiptType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptType.swift; sourceTree = "<group>"; };
+		833AAE0E2103592500E779B1 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		833AAE10210359BF00E779B1 /* PaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
+		833AAE1221035A0900E779B1 /* InputTaxType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTaxType.swift; sourceTree = "<group>"; };
+		833AAE1421035AC700E779B1 /* CCyRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCyRate.swift; sourceTree = "<group>"; };
+		833AAE1621035C0200E779B1 /* Reduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reduction.swift; sourceTree = "<group>"; };
+		833AAE1821035CB400E779B1 /* ReductionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReductionType.swift; sourceTree = "<group>"; };
+		833AAE1A21035E1A00E779B1 /* SettlementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementType.swift; sourceTree = "<group>"; };
+		833AAE1C21035E8D00E779B1 /* TravelCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCost.swift; sourceTree = "<group>"; };
+		833AAE1E2103602500E779B1 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		833AAE20210360B000E779B1 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		833AAE2221036BEF00E779B1 /* Accomodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accomodation.swift; sourceTree = "<group>"; };
+		833AAE24210377B900E779B1 /* Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		8366A98920E4F83700C41254 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
-		8366A98B20E4F8B300C41254 /* Partners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partners.swift; sourceTree = "<group>"; };
-		8366A98D20E4F90800C41254 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
-		8366A98F20E4F9F600C41254 /* Receipts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipts.swift; sourceTree = "<group>"; };
-		8366A99120E4FA5C00C41254 /* TravelDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDays.swift; sourceTree = "<group>"; };
+		8366A98B20E4F8B300C41254 /* Partner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
+		8366A98D20E4F90800C41254 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		8366A98F20E4F9F600C41254 /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		8366A99120E4FA5C00C41254 /* TravelDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDay.swift; sourceTree = "<group>"; };
 		8366A99320E4FAC600C41254 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesUITests/Pods-Preyer expensesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C60D250EF9C3EDC63A8EB9EF /* Pods-Preyer expenses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expenses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses.debug.xcconfig"; sourceTree = "<group>"; };
@@ -184,12 +210,25 @@
 		8366A98420E4D93000C41254 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				833AAE2221036BEF00E779B1 /* Accomodation.swift */,
+				833AAE1421035AC700E779B1 /* CCyRate.swift */,
+				8366A98D20E4F90800C41254 /* Country.swift */,
+				833AAE0E2103592500E779B1 /* Currency.swift */,
+				833AAE1E2103602500E779B1 /* Food.swift */,
+				833AAE1221035A0900E779B1 /* InputTaxType.swift */,
+				8366A98B20E4F8B300C41254 /* Partner.swift */,
+				833AAE10210359BF00E779B1 /* PaymentType.swift */,
+				8366A98F20E4F9F600C41254 /* Receipt.swift */,
+				833AAE0C210356B500E779B1 /* ReceiptType.swift */,
+				833AAE1621035C0200E779B1 /* Reduction.swift */,
+				833AAE1821035CB400E779B1 /* ReductionType.swift */,
+				833AAE1A21035E1A00E779B1 /* SettlementType.swift */,
+				833AAE1C21035E8D00E779B1 /* TravelCost.swift */,
+				8366A99120E4FA5C00C41254 /* TravelDay.swift */,
 				8366A98920E4F83700C41254 /* Trip.swift */,
-				8366A98B20E4F8B300C41254 /* Partners.swift */,
-				8366A98D20E4F90800C41254 /* Countries.swift */,
-				8366A98F20E4F9F600C41254 /* Receipts.swift */,
-				8366A99120E4FA5C00C41254 /* TravelDays.swift */,
 				8366A99320E4FAC600C41254 /* User.swift */,
+				833AAE20210360B000E779B1 /* Vehicle.swift */,
+				833AAE24210377B900E779B1 /* Uploadable.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -408,6 +447,8 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/KeyStorage/KeyStorage.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -415,6 +456,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyStorage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,15 +472,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8366A99020E4F9F600C41254 /* Receipts.swift in Sources */,
+				833AAE0F2103592500E779B1 /* Currency.swift in Sources */,
+				8366A99020E4F9F600C41254 /* Receipt.swift in Sources */,
 				8366A98A20E4F83700C41254 /* Trip.swift in Sources */,
-				8366A99220E4FA5C00C41254 /* TravelDays.swift in Sources */,
+				833AAE0D210356B500E779B1 /* ReceiptType.swift in Sources */,
+				8366A99220E4FA5C00C41254 /* TravelDay.swift in Sources */,
+				833AAE1D21035E8D00E779B1 /* TravelCost.swift in Sources */,
 				8338833C20E4D74700FB9911 /* DetailViewController.swift in Sources */,
+				833AAE1921035CB400E779B1 /* ReductionType.swift in Sources */,
+				833AAE2321036BEF00E779B1 /* Accomodation.swift in Sources */,
+				833AAE1521035AC700E779B1 /* CCyRate.swift in Sources */,
+				833AAE25210377B900E779B1 /* Uploadable.swift in Sources */,
+				833AAE1721035C0200E779B1 /* Reduction.swift in Sources */,
+				833AAE1321035A0900E779B1 /* InputTaxType.swift in Sources */,
 				833876A320FCA1F200610CE8 /* loginViewController.swift in Sources */,
 				8338833A20E4D74700FB9911 /* MasterViewController.swift in Sources */,
 				8366A99420E4FAC600C41254 /* User.swift in Sources */,
-				8366A98C20E4F8B300C41254 /* Partners.swift in Sources */,
-				8366A98E20E4F90800C41254 /* Countries.swift in Sources */,
+				833AAE11210359BF00E779B1 /* PaymentType.swift in Sources */,
+				833AAE1B21035E1A00E779B1 /* SettlementType.swift in Sources */,
+				8366A98C20E4F8B300C41254 /* Partner.swift in Sources */,
+				833AAE1F2103602500E779B1 /* Food.swift in Sources */,
+				833AAE21210360B000E779B1 /* Vehicle.swift in Sources */,
+				8366A98E20E4F90800C41254 /* Country.swift in Sources */,
 				8338833820E4D74700FB9911 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

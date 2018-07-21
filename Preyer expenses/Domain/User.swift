@@ -7,15 +7,27 @@
 //
 
 import Foundation
+import RealmSwift
 
-class User {
-    var username : String!
-    var password : String!
-    var token : String = ""
+class User : Object , Uploadable{
+    @objc dynamic var  id : Int = 0
+    @objc dynamic var  username : String = String()
+    @objc dynamic var  password : String = String()
+    var  client : Partner?
+    @objc dynamic var  email : String = String()
+    @objc dynamic var  firstName : String = String()
+    @objc dynamic var  lastName : String = String()
+    @objc dynamic var  userName : String = String()
+    @objc dynamic var  personNumber : String = String()
+    var  costCenter : Partner?
+    @objc dynamic var  token : String = String()
+    var  trips = List<Trip>()
     
-    init(username: String, password: String) {
-        self.username = username
-        self.password = password
-        
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    static var resourceURL: URL {
+        return URL(string: "\(BASE_APP_URL)/api/users")!
     }
 }

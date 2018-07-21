@@ -203,7 +203,7 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
      call the delegate method when the signin button is clicked
      */
     @objc fileprivate func signin_clicked() {
-        if refresh_token == "" {
+/*        if refresh_token == "" {
             doLogin(username: username.text!.lowercased(), password: password.text!) { access_token, reauth_token, error in
                 // use tokens and error here
                 if error! {
@@ -229,7 +229,7 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
         }
-    }
+*/    }
     
     /**
      Define the behavior when the return button is clicked when on username field or password field
@@ -244,7 +244,7 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         return false
     }
-    
+    /*
     func doLogin (username: String, password: String, completionHandler: @escaping (String? ,String?, Bool?) -> ())  {
         
         let login_URL = "/api/login"
@@ -391,7 +391,7 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
             
             
             for (_,subJson):(String, JSON) in JSON(json) {
-                let country = Country(json: subJson)
+              let country = Country(json: subJson)
                 countries.append(country)
             }
         }
@@ -449,5 +449,6 @@ open class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    */
 }
 

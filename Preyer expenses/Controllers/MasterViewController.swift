@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 
 extension JSON {
@@ -28,12 +29,14 @@ extension JSON {
         return dateFormatter
     }()
 }
+
+/*
 var countries = [Country]()
 var partners = [Partner]()
 var payors = [Partner]()
+*/
 
-var token : String =  ""
-var refresh_token : String = ""
+
 let BASE_APP_URL = "http://127.0.0.1:8080"
 let APP_URL = "http://127.0.0.1:8080/api/trips"
 let trips_URL = "/api/trips"
@@ -42,25 +45,24 @@ let partners_URL = "/api/partners"
 
 let login_URL = "/api/login"
 
-class MasterViewController: UITableViewController  , LoginViewControllerDelegate  {
+class MasterViewController: UITableViewController    {  //, LoginViewControllerDelegate
 
     @IBOutlet var masterTableView: UITableView!
     
+    let realm = try! Realm()
+    
     var detailViewController: DetailViewController? = nil
 
-    var trips = [Trip]()
+    var trips  : Results<Trip>!
  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.getCountries()
-        //       getPartners(url: BASE_APP_URL+partners_URL)
-        self.getPayors()
-        self.getTrips()
         navigationItem.leftBarButtonItem = editButtonItem
- 
+        loadTrips()
         
-      //  masterTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
+        //  masterTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
@@ -77,6 +79,8 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
   }
     override func viewDidAppear(_ animated: Bool) {
          super.viewDidAppear(animated)
+ 
+/*
         if refresh_token == "" {
             let loginController = LoginViewController()
             
@@ -86,7 +90,8 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         } else {
             doReAuthorize()
         }
-    }
+ */
+ }
     
    
     
@@ -141,15 +146,15 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         let fromDate : String = formatter.string(from: trip.beginning!)
         formatter.dateFormat = "MM.dd"
         let toDate : String = formatter.string(from: trip.ending!)
-        var payorName : String = "No Payor"
-        if let payorIndex = trip.payor {
-            if (payorIndex > 0 && payors.count > 0) {
-                let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!
-                payorName = payor.name
-            } else {
-                payorName = "0 Payor"
-            }
-        }
+       var payorName : String = "No Payor"
+     //   if let payorIndex = trip.payor {
+     //       if (payorIndex > 0 && payors.count > 0) {
+     //           let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!
+     //           payorName = payor.name
+     //       } else {
+     //           payorName = "0 Payor"
+     //       }
+      //  }
         
         cell.textLabel?.text! =  "\(fromDate) - \(toDate) :  \(payorName)"
         cell.detailTextLabel?.text! = trip.reason
@@ -163,8 +168,8 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            trips.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            //trips.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
@@ -172,6 +177,11 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
 
     // MARK:  Data Source
     
+    func loadTrips() {
+        trips = realm.objects(Trip.self)
+        tableView.reloadData()
+    }
+ /*
     func signin(loginViewController: LoginViewController, accessToken: String, refreshToken: String) {
         print ("login delegate called ")
         // do login
@@ -458,6 +468,8 @@ class MasterViewController: UITableViewController  , LoginViewControllerDelegate
         }
         
     }
+ */
     
 }
+
 

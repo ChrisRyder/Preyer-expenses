@@ -26,27 +26,27 @@ class DetailViewController:  FormViewController {
         form +++ Section("Trip Details")
             <<< PickerInlineRow <String>() {
                 $0.title = "Payor:"
-                if let payorID = self.detailItem?.payor {
+     //           if let payorID = self.detailItem?.payor {
                     
-                    let payor : Partner = payors.lazy.filter( {return $0.id == payorID }).first!
-                    $0.value = "\(payor.name)"
-                  }
-                let optionArray =
-                    Array(payors.sorted().map { "\( $0.name)" })
+     //               let payor : Partner = payors.lazy.filter( {return $0 == payorID }).first!
+     //               $0.value = "\(payor.name)"
+     //             }
+          //      let optionArray =
+          //          Array(payors.sorted().map { "\( $0.name)" })
                 //debugPrint(optionArray)
-                $0.options = optionArray
+            //    $0.options = optionArray
 
             }
             <<< PickerInlineRow <String>() {
                 $0.title = "Country:"
-                if let cntID = self.detailItem?.countries  {
-                    let cnty : Country = countries.lazy.filter( {return $0.id == cntID }).first!
-                    $0.value = "\(cnty.name)"
-                 }
-                let optionArray =
-                    Array(countries.sorted().map { "\($0)" })
+         //       if let cntID = self.detailItem?.country  {
+             //       let cnty : Country = countries.lazy.filter( {return $0 == cntID }).first!
+              //      $0.value = "\(cnty.name)"
+          //       }
+           //     let optionArray =
+           //         Array(countries.sorted().map { "\($0)" })
                 //debugPrint(optionArray)
-                $0.options = optionArray
+        //        $0.options = optionArray
             }
             <<< TextRow(){
                 $0.title = "infoText:"

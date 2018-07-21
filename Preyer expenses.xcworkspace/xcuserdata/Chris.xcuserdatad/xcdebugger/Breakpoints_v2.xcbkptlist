@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Preyer expenses/Domain/Trip.swift"
-            timestampString = "553693374.275962"
+            timestampString = "553880046.381503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
             endingLineNumber = "38"
-            landmarkName = "init(json:)"
-            landmarkType = "7">
+            landmarkName = "Trip"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
