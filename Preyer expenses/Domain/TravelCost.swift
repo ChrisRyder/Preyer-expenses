@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class TravelCost: Object , Uploadable{
@@ -32,4 +33,19 @@ class TravelCost: Object , Uploadable{
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/travelcosts")!
     }
+    
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.route = (json["route"].null == NSNull()) ? String() : json["route"].string!
+        self.rentalCar = (json["rentalCar"].null == NSNull()) ? false : json["rentalCar"].bool!
+        self.train = (json["train"].null == NSNull()) ? false : json["train"].bool!
+        self.airplane = (json["airplane"].null == NSNull()) ? false : json["airplane"].bool!
+        self.kmTraveler = (json["kmTraveler"].null == NSNull()) ? 0 : json["kmTraveler"].int!
+        self.infoText = (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
+        self.noPaying = (json["noPaying"].null == NSNull()) ? false : json["noPaying"].bool!
+        self.vehicle = (json["vehicle"].null == NSNull()) ? nil : Vehicle(from: json["vehicle"])
+        
+    }
+
 }

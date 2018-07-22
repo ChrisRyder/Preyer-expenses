@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class Vehicle : Object , Uploadable {
@@ -20,4 +21,14 @@ class Vehicle : Object , Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/vehicles")!
     }
+    
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.vhcl = (json["vhcl"].null == NSNull()) ? 0 : json["vhcl"].int!
+        self.name = (json["name"].null == NSNull()) ? String() : json["name"].string!
+   
+    }
+    
+
 }

@@ -8,11 +8,17 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
-protocol Uploadable  {  //Codable
+protocol Uploadable {
     static var resourceURL: URL { get }
 }
 
+extension Object {
+
+    
+    
+}
 
 extension Uploadable where Self: Object {
     func getId() -> String {
@@ -27,7 +33,21 @@ extension Uploadable where Self: Object {
         return String(describing: id)
     }
     
- //   func encoded(using jsonEncoder : JSONEncoder = JSONEncoder()) -> Data? {
- //       return try? jsonEncoder.encode(self)
- //   }
+    //func encoded(using jsonEncoder : JSONEncoder = JSONEncoder()) -> Data? {
+    //    return try? jsonEncoder.encode(self)
+   // }
+    
+    func toJSON() {
+        let mirrored_object = Mirror(reflecting: self)
+        
+        for (index, attr) in mirrored_object.children.enumerated() {
+            if let propertyName = attr.label as String? {
+                print("Attr \(index): \(propertyName) = \(attr.value)")
+            }
+        }
+    }
+    
+
+
+ 
 }

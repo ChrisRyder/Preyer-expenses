@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class Accomodation : Object, Uploadable {
@@ -24,4 +25,17 @@ class Accomodation : Object, Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/accomodation")!
     }
+ 
+    convenience init(from json: JSON)  {
+        self.init()
+        self.id =  json["id"].int!
+        self.indRefund  = (json["indRefund"].null == NSNull()) ? 0.0 : json["indRefund"].float!
+        self.infoText  = (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
+        self.noPaying = (json["noPaying"].null == NSNull()) ? false : json["noPaying"].bool!
+        self.settlementType = (json["settlementType"].null == NSNull()) ? nil : SettlementType(from: json["settlementType"])
+        self.country  = (json["countries"].null == NSNull()) ? nil : Country(from: json["countries"])
+ 
+        
+    }
+  
 }

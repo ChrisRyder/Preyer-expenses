@@ -146,7 +146,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         let fromDate : String = formatter.string(from: trip.beginning!)
         formatter.dateFormat = "MM.dd"
         let toDate : String = formatter.string(from: trip.ending!)
-       var payorName : String = "No Payor"
+        var payorName : String = "No Payor"
      //   if let payorIndex = trip.payor {
      //       if (payorIndex > 0 && payors.count > 0) {
      //           let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!

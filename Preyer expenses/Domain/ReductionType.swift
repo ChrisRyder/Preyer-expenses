@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class ReductionType: Object, Uploadable {
@@ -21,4 +22,12 @@ class ReductionType: Object, Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/reductiontypes")!
     }
+    
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.rdn = (json["rdn"].null == NSNull()) ? String(): json["rdn"].string!
+        self.name = (json["name"].null == NSNull()) ? String(): json["name"].string!
+    }
 }
+

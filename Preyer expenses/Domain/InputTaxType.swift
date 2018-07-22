@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class InputTaxType: Object , Uploadable{
@@ -20,5 +21,15 @@ class InputTaxType: Object , Uploadable{
     
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/inputtytypes")!
+    }
+    
+    // Mark - decode
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.tax = (json["tax"].null == NSNull()) ? String() : json["tax"].string!
+        self.name =  (json["name"].null == NSNull()) ? String() : json["name"].string!
+        self.domestic  = (json["domestic"].null == NSNull()) ? false : json["domestic"].bool!
+        
     }
 }

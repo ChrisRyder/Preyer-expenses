@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 
-class CcyRate: Object ,Uploadable {
+class CcyRate: Object ,Uploadable  {
     
     //override var description: String { return "\(String(describing: name)): \(String(describing: rate))" }
     
@@ -28,5 +29,18 @@ class CcyRate: Object ,Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/ccyrate")!
     }
+
+    // Mark - decode
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.cur1 = (json["cur1"].null == NSNull()) ? nil : Currency(from: json["cur1"])
+        self.cur2 = (json["cur2"].null == NSNull()) ? nil : Currency(from: json["cur2"])
+        self.rate =  (json["ctyShort"].null == NSNull()) ? 0.0 : json["ctyShort"].float!
+        self.name =  (json["name"].null == NSNull()) ? String() : json["name"].string!
+        self.comment =  (json["comment"].null == NSNull()) ? String() : json["comment"].string!
+    }
+    
+ 
 }
 

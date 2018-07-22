@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class Reduction: Object, Uploadable {
@@ -25,4 +26,18 @@ class Reduction: Object, Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/reductions")!
     }
+    
+    convenience init(from json: JSON) {
+        self.init()
+        self.id = json["id"].int!
+        self.rdnDate = (json["rdnDate"].null == NSNull()) ? nil : json["rdnDate"].date!
+        self.breakfast = (json["breakfast"].null == NSNull()) ? false : json["breakfast"].bool!
+        self.lunch = (json["lunch"].null == NSNull()) ? false : json["lunch"].bool!
+        self.dinner = (json["dinner"].null == NSNull()) ? false : json["dinner"].bool!
+        self.receipt = (json["receipt"].null == NSNull()) ? nil : Receipt(from: json["receipt"])
+        self.reductionType = (json["reductionType"].null == NSNull()) ? nil : ReductionType(from: json["reductionType"])
+    }
+        
 }
+    
+

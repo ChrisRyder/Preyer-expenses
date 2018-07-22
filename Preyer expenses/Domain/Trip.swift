@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
-class Trip : Object , Uploadable { 
+class Trip : Object , Uploadable  {
     @objc dynamic var id : Int = 0
     @objc dynamic var  beginning : Date?
     @objc dynamic var  ending  : Date?
@@ -23,30 +24,8 @@ class Trip : Object , Uploadable {
     let  receipts = List<Receipt>()
     let  travelDays = List<TravelDay>()
     var user : User?
-/*
-    init(id: Int, infoText: String, reason: String,beginning : Date, ending : Date, payor: Int, costCenter: Int, countries: Int) {
-        self.id = id
-        self.infoText = infoText
-        self.reason = reason
-        self.beginning = beginning
-        self.ending = ending
-        self.payor = payor
-        self.costCenter = costCenter
-        self.countries = countries
-    }
-    convenience init(json: JSON) {
-        print(json)
-        let id: Int =  json["id"].int!
-        let beginning : Date? = (json["beginning"].null == NSNull()) ? Date() : json["beginning"].date
-        let ending : Date? = (json["ending"].null == NSNull()) ? Date() : json["ending"].date
-        let reason : String = (json["reason"].null == NSNull()) ? "" : json["reason"].string!
-        let infoText : String = (json["infoText"].null == NSNull()) ? "" : json["infoText"].string!
-        let payor = (json["payor"].null == NSNull()) ? 0 : (json["payor"]["id"].null == NSNull()) ? 0 : json["payor"]["id"].int!
-        let costCenter   = (json["costCenter"].null == NSNull()) ? 0 : (json["costCenter"]["id"].null == NSNull()) ? 0 : json["costCenter"]["id"].int!
-        let countries   = (json["countries"].null == NSNull()) ? 0 : (json["countries"]["id"].null == NSNull()) ? 0 : json["countries"]["id"].int!
-        self.init(id: id, infoText: infoText, reason: reason,beginning : beginning!, ending : ending!, payor: payor, costCenter: costCenter, countries: countries)
-    }
-  */
+
+ 
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -54,4 +33,34 @@ class Trip : Object , Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/trips")!
     }
+    
+
+   
+    convenience init(from json: JSON) {
+        self.init()
+        self.id =  json["id"].int!
+        self.beginning = (json["beginning"].null == NSNull()) ? Date() : json["beginning"].date
+        self.ending = (json["ending"].null == NSNull()) ? Date() : json["ending"].date
+        self.exports = (json["reason"].null == NSNull()) ? 0 : json["reason"].int!
+        self.infoText = (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
+        self.reason = (json["reason"].null == NSNull()) ? String() : json["reason"].string!
+        self.upfront = (json["reason"].null == NSNull()) ? 0.0 : json["reason"].float!
+        self.costCenter   = (json["costCenter"].null == NSNull()) ? nil : Partner(from: json["costCenter"])
+        self.country   = (json["countries"].null == NSNull()) ? nil :  Country(from: json["countries"])
+        self.payor = (json["payor"].null == NSNull()) ? nil : Partner(from: json["payor"])
+        if json["receipts"].null != NSNull() {
+            for item in json["receipts"].arrayValue {
+                let obj = Receipt(from: item)
+                self.receipts.append(obj)
+            }
+          }
+        if json["travelDays"].null != NSNull() {
+            for item in json["travelDays"].arrayValue {
+                let obj = TravelDay(from: item)
+                self.travelDays.append(obj)
+            }
+        }
+     
+    }
+  
 }

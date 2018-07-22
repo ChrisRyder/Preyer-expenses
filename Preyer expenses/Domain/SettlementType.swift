@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 import RealmSwift
 
 class SettlementType: Object , Uploadable {
@@ -20,5 +21,13 @@ class SettlementType: Object , Uploadable {
     
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/settlementtypes")!
+    }
+    
+    convenience init(from json: JSON)  {
+        self.init()
+        self.id =  json["id"].int!
+        self.name  = (json["name"].null == NSNull()) ? String() : json["name"].string!
+        self.stlmt  = (json["stlmt"].null == NSNull()) ? 0 : json["stlmt"].int!
+        
     }
 }
