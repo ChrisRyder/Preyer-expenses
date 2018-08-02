@@ -34,7 +34,52 @@ class Trip : Object , Uploadable  {
         return URL(string: "\(BASE_APP_URL)/api/trips")!
     }
     
+    private enum CodingKeys: String, CodingKey {
+        case id, beginning, ending,exports,infoText,reason,upfront,costCenter,country,payor,receipts,travelDays,user
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(beginning, forKey: .beginning)
+        try container.encode(ending, forKey: .ending)
+        try container.encode(exports, forKey: .exports)
+        try container.encode(infoText, forKey: .infoText)
+        try container.encode(reason, forKey: .reason)
+        try container.encode(upfront, forKey: .upfront)
+        try container.encode(costCenter, forKey: .costCenter)
+        try container.encode(country, forKey: .country)
+        try container.encode(payor, forKey: .payor)
+        let receiptsArray = Array(self.receipts)
+        try container.encode(receiptsArray, forKey: .reason)
+        let travelDaysArray = Array(self.travelDays)
+        try container.encode(travelDaysArray, forKey: .travelDays)
+        try container.encode(user, forKey: .user)
+    }
 
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        beginning = try container.decode(Date.self, forKey: .beginning)
+        ending = try container.decode(Date.self, forKey: .ending)
+        exports = try container.decode(Int.self, forKey: .exports)
+        infoText = try container.decode(String.self, forKey: .infoText)
+        reason = try container.decode(String.self, forKey: .reason)
+        upfront = try container.decode(Float.self, forKey: .reason)
+        costCenter = try container.decode(Partner?.self, forKey: .costCenter)
+        country = try container.decode(Country?.self, forKey: .country)
+        payor = try container.decode(Partner?.self, forKey: .payor)
+        if let arr = try container.decodeIfPresent(Array<Receipt>.self, forKey: .receipts) {
+            receipts.append(objectsIn: arr)
+        }
+        if let arr = try container.decodeIfPresent(Array<TravelDay>.self, forKey: .travelDays) {
+            travelDays.append(objectsIn: arr)
+        }
+         user = try container.decode(User?.self, forKey: .user)
+    }
    
     convenience init(from json: JSON) {
         self.init()

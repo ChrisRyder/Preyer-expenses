@@ -29,7 +29,22 @@ class Partner : Object , Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/partners")!
     }
+    private enum CodingKeys: String, CodingKey {
+        case id, par, name,payor,client,costCenter,hidden
+    }
     
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        par = try container.decode(String.self, forKey: .par)
+        name = try container.decode(String.self, forKey: .name)
+        payor = try container.decode(Bool.self, forKey: .payor)
+        client = try container.decode(Bool.self, forKey: .client)
+        costCenter = try container.decode(Bool.self, forKey: .costCenter)
+        hidden = try container.decode(Bool.self, forKey: .hidden)
+  
+    }
     
     convenience init(from json: JSON) {
         self.init()

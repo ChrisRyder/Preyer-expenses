@@ -8,10 +8,12 @@
 
 import UIKit
 import Eureka
+import RealmSwift
 
 
 class DetailViewController:  FormViewController {
 
+    let realm = try! Realm()
 
     
     func configureView() {
@@ -50,15 +52,35 @@ class DetailViewController:  FormViewController {
             }
             <<< TextRow(){
                 $0.title = "infoText:"
-                $0.placeholder = self.detailItem?.infoText ?? "Enter text here"
+                $0.placeholder =  "Enter text here"
+                $0.value = self.detailItem?.infoText
+                $0.onChange({ (row) in
+                    let rlm = try! Realm()
+                    if row.value != nil {
+                        try! rlm.write {
+                            self.detailItem?.infoText = row.value!
+                            rlm.add(self.self.detailItem!, update: true)
+                        }
+                    }
+                })
+                
             }
-            <<< LabelRow() {
-                $0.title = "Reason:"
-            }
+            
             <<< TextAreaRow() {
                 $0.title = "Reason:"
-                $0.placeholder = self.detailItem?.reason ?? "Enter text here"
+                $0.placeholder =  "Enter text here"
+                $0.value = self.detailItem?.reason 
+                $0.onChange({ (row) in
+                    let rlm = try! Realm()
+                    if row.value != nil {
+                        try! rlm.write {
+                            self.detailItem?.reason = row.value!
+                            rlm.add(self.self.detailItem!, update: true)
+                        }
+                    }
+                })
             }
+
             +++ Section("Dates")
             <<< DateTimeRow() {
                 $0.title = "Beginning:"
@@ -66,7 +88,11 @@ class DetailViewController:  FormViewController {
                 $0.value = self.detailItem?.beginning ?? Date(timeIntervalSinceReferenceDate: 0)
                 $0.onChange { [unowned self] row in
                     if let date = row.value {
-                        self.detailItem?.beginning = date
+                         let rlm = try! Realm()
+                         try! rlm.write {
+                            self.detailItem?.beginning = date
+                            rlm.add(self.self.detailItem!, update: true)
+                        }
                     }
                 }
             }
@@ -75,7 +101,11 @@ class DetailViewController:  FormViewController {
                 $0.value = self.detailItem?.ending ?? Date(timeIntervalSinceReferenceDate: 0)
                 $0.onChange { [unowned self] row in
                     if let date = row.value {
-                        self.detailItem?.ending = date
+                        let rlm = try! Realm()
+                        try! rlm.write {
+                            self.detailItem?.ending = date
+                           rlm.add(self.self.detailItem!, update: true)
+                        }
                     }
                 }
         }

@@ -36,7 +36,49 @@ class Receipt: Object , Uploadable  {
         return URL(string: "\(BASE_APP_URL)/api/receipts")!
     }
     
+    private enum CodingKeys: String, CodingKey {
+        case id, amontQc, ccyRate,rcptDate,rcptText,infoText,rcptF,dayCheckIn,dayCheckOut,payor,costCenter,inputTaxType,receiptType,paymentType,currency
+    }
     
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(amontQc, forKey: .amontQc)
+        try container.encode(ccyRate, forKey: .ccyRate)
+        try container.encode(rcptDate, forKey: .rcptDate)
+        try container.encode(rcptText, forKey: .rcptText)
+        try container.encode(infoText, forKey: .infoText)
+        try container.encode(rcptF, forKey: .rcptF)
+        try container.encode(dayCheckIn, forKey: .dayCheckIn)
+        try container.encode(dayCheckOut, forKey: .dayCheckOut)
+        try container.encode(payor, forKey: .payor)
+        try container.encode(costCenter, forKey: .costCenter)
+        try container.encode(inputTaxType, forKey: .inputTaxType)
+        try container.encode(receiptType, forKey: .receiptType)
+        try container.encode(paymentType, forKey: .paymentType)
+        try container.encode(currency, forKey: .currency)
+   }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        amontQc = try container.decode(Float.self, forKey: .amontQc)
+        ccyRate = try container.decode(Float.self, forKey: .ccyRate)
+        rcptDate = try container.decode(Date.self, forKey: .rcptDate)
+        infoText = try container.decode(String.self, forKey: .infoText)
+        rcptText = try container.decode(String.self, forKey: .rcptText)
+        rcptF = try container.decode(Bool.self, forKey: .rcptF)
+        dayCheckIn = try container.decode(Date.self, forKey: .dayCheckIn)
+        dayCheckOut = try container.decode(Date.self, forKey: .dayCheckOut)
+        payor = try container.decode(Partner?.self, forKey: .payor)
+        costCenter = try container.decode(Partner?.self, forKey: .costCenter)
+        inputTaxType = try container.decode(InputTaxType?.self, forKey: .inputTaxType)
+        receiptType = try container.decode(ReceiptType?.self, forKey: .receiptType)
+        paymentType = try container.decode(PaymentType?.self, forKey: .paymentType)
+        currency = try container.decode(Currency?.self, forKey: .currency)
+   }
     convenience init(from json: JSON)
         {
         self.init()

@@ -22,12 +22,5 @@ class PaymentType: Object , Uploadable {
     static var resourceURL: URL {
         return URL(string: "\(BASE_APP_URL)/api/paymenttypes")!
     }
-    // Mark - decode
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.pmnt = (json["pmnt"].null == NSNull()) ? String() : json["pmnt"].string!
-        self.name =  (json["name"].null == NSNull()) ? String() : json["name"].string!
-        
-    }
+
 }

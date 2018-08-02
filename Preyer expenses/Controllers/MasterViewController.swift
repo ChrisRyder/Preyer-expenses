@@ -75,6 +75,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+         tableView.reloadData()
         
   }
     override func viewDidAppear(_ animated: Bool) {
@@ -100,12 +101,6 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         // Dispose of any resources that can be recreated.
     }
 
-    @objc
-    func insertNewObject(_ sender: Any) {
-        //trips.insert(Trip(), at: 0)
-        //let indexPath = IndexPath(row: 0, section: 0)
-        //tableView.insertRows(at: [indexPath], with: .automatic)
-    }
 
     // MARK: - Segues
 
@@ -139,8 +134,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
 
         // let object = objects[indexPath.row] as! NSDate
         let trip = trips[indexPath.row]
-  //      print(trip.infoText)
-  //      print(trip.payor)
+
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY.MM.dd"
         let fromDate : String = formatter.string(from: trip.beginning!)
@@ -168,10 +162,14 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //trips.remove(at: indexPath.row)
-            //tableView.deleteRows(at: [indexPath], with: .fade)
+            let trip = trips[indexPath.row]
+            try! realm.write {
+                realm.delete(trip)
+            }
+            tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            insertNewObject(self)
         }
     }
 
@@ -181,7 +179,32 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         trips = realm.objects(Trip.self)
         tableView.reloadData()
     }
- /*
+    
+    
+    // MARK: Functions
+    
+    @objc
+    func insertNewObject(_ sender: Any) {
+
+    
+        let realm = try! Realm()
+        
+        let trip = Trip()
+        let nextId : Int = (trips.max(ofProperty: "id") ?? 0 ) + 1
+     
+        
+        trip.id = nextId
+        trip.beginning = Date()
+        trip.ending = Date()
+        trip.reason = "A test of REALM"
+       
+        try! realm.write {
+            realm.add(trip)
+        }
+        
+        tableView.reloadData()
+    }
+ 
     func signin(loginViewController: LoginViewController, accessToken: String, refreshToken: String) {
         print ("login delegate called ")
         // do login
@@ -230,6 +253,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
             print ("AccessToken: \(accessToken)")
             print ("refreshToken: \(refreshToken)")
             print("logon successful")
+  /*
             if countries.count == 0 {
                 self.getCountries()
             }
@@ -239,6 +263,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
             if self.trips.count == 0 {
                 self.getTrips()
             }
+             */
         }
         
     }
@@ -279,6 +304,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
             print ("AccessToken: \(accessToken)")
             print ("refreshToken: \(refreshToken)")
             print("logon successful")
+            /*
             if countries.count == 0 {
                 self.getCountries()
             }
@@ -288,11 +314,12 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
             if self.trips.count == 0 {
                 self.getTrips()
             }
+             */
         }
         
     }
     
-    
+  /*
     func getTrips() {
 
         let headers = [

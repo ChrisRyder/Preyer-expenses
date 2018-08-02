@@ -19,6 +19,7 @@ var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
 var token : String =  ""
 var refresh_token : String = ""
 
+var syncService: SyncService!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -29,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let realm = try! Realm()
- //       if refresh_token == "" {
+        syncService = SyncService(modelTypes: [Trip.self])
+        //       if refresh_token == "" {
  //           doLogin() { access_token, reauth_token, error in
                 // use tokens and error here
   //              if error! {
@@ -55,12 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
    //             return
    //         }
    //     }
-        
         let splitViewController = window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
         return true
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
