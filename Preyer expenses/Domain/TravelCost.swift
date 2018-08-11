@@ -34,6 +34,39 @@ class TravelCost: Object , Uploadable{
         return URL(string: "\(BASE_APP_URL)/api/travelcosts")!
     }
     
+    private enum CodingKeys: String, CodingKey {
+        case id, route, rentalCar,train,airplane,kmTraveler,noPaying,vehicle
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(route, forKey: .route)
+        try container.encode(rentalCar, forKey: .rentalCar)
+        try container.encode(train, forKey: .train)
+        try container.encode(airplane, forKey: .airplane)
+        try container.encode(kmTraveler, forKey: .kmTraveler)
+        try container.encode(noPaying, forKey: .noPaying)
+        try container.encode(vehicle, forKey: .vehicle)
+        
+    }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        route = try container.decode(String.self, forKey: .route)
+        rentalCar = try container.decode(Bool.self, forKey: .rentalCar)
+        train = try container.decode(Bool.self, forKey: .train)
+        airplane = try container.decode(Bool.self, forKey: .airplane)
+        kmTraveler = try container.decode(Int.self, forKey: .kmTraveler)
+        noPaying = try container.decode(Bool.self, forKey: .noPaying)
+        vehicle = try container.decode(Vehicle?.self, forKey: .vehicle)
+        
+    }
+    
+    
     convenience init(from json: JSON) {
         self.init()
         self.id = json["id"].int!

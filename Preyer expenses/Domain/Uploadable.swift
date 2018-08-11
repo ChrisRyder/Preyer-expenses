@@ -23,6 +23,9 @@ struct Update {
     let type: Syncable.Type
 }
 
+class Refer : Codable {
+    var id: Int = 0
+}
 
 extension Object {
 
@@ -58,6 +61,7 @@ extension Uploadable where Self: Object {
     }
     
     func encoded(using jsonEncoder: JSONEncoder = JSONEncoder()) -> Data? {
+        jsonEncoder.dateEncodingStrategy = .iso8601
         return try? jsonEncoder.encode(self)
     }
     

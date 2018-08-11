@@ -24,6 +24,32 @@ class Currency: Object , Uploadable{
         return URL(string: "\(BASE_APP_URL)/api/currencies")!
     }
     
+    private enum CodingKeys: String, CodingKey {
+        case id, cur, name, country  }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(cur, forKey: .cur)
+        try container.encode(name, forKey: .name)
+        try container.encode(country, forKey: .country)
+        
+        
+        
+    }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        cur = try container.decode(String.self, forKey: .cur)
+        name = try container.decode(String.self, forKey: .name)
+        country = try container.decode(Country?.self, forKey: .country)
+
+        
+    }
+    
     // Mark - decode
     convenience init(from json: JSON) {
         self.init()

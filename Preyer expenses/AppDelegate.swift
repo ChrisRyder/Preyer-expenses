@@ -12,14 +12,11 @@ import Alamofire
 import SwiftyJSON
 
 
-// TODO:  PUT THESE IN THE CONFIG SHEET
-var username : String = ""
-var password : String = ""
-var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
-var token : String =  ""
-var refresh_token : String = ""
+
 
 var syncService: SyncService!
+var sessionManager: SessionManager = Alamofire.SessionManager.default
+let baseURLString = "http://127.0.0.1:8080/"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -30,33 +27,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let realm = try! Realm()
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            // schemaVersion: 1,
+            
+            // Set the block which will be called automatically when opening a Realm with
+            // a schema version lower than the one set above
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
+        let authHandler = AuthHandler(
+            username: "Cryder",
+            password: "Objects2012",
+            baseURLString: baseURLString,
+            accessToken: "",
+            refreshToken: ""
+        )
+        //let sessionManager = Alamofire.SessionManager.default
+        sessionManager.adapter = authHandler
+        sessionManager.retrier = authHandler
+        getCountries()
+        getPartners()
+        
         syncService = SyncService(modelTypes: [Trip.self])
-        //       if refresh_token == "" {
- //           doLogin() { access_token, reauth_token, error in
-                // use tokens and error here
-  //              if error! {
-  //                  print ("error")
-  //                  self.errmsg.text = "login unsuccessful"
-  //                 self.errmsg.isHidden = false
-  //              } else {
-  //                  self.dismiss(animated: true)
-  //                  self.delegate?.signin(loginViewController: self,accessToken: access_token!, refreshToken: reauth_token!)
-  //              }
-                
-  //              return
-  //          }
-  //      } else {
-  //          doReAuthorize() { access_token, reauth_token, error in
-                // use tokens and error here
-  //              if error! {
-   //                 print ("error")
-   //             } else {
-  //                  self.dismiss(animated: true)
-    //                self.delegate?.signin(loginViewController: self,accessToken: access_token!, refreshToken: reauth_token!)
-   //             }
-   //             return
-   //         }
-   //     }
+  
         let splitViewController = window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
@@ -101,11 +104,112 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 }
 
+
 extension AppDelegate {
+
     
+
+    
+    func getCountries() {
+        let countries_URL = "/api/countries"
+
+        sessionManager.request(BASE_APP_URL+countries_URL ).responseJSON { (response: DataResponse<Any>) in
+             print("======== getCountries() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+
+            print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+            print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let countries = try JSONDecoder().decode([Country].self, from: response.data!)
+                    print ("countries: \(String(describing:countries))")
+                  
+                         let realm = try! Realm()
+                         try! realm.write {
+                             realm.add(countries, update: true)
+                         }
+                  
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+
+            }
+            else  {
+                print("error calling GET on \(countries_URL)")
+                print(response.error!)
+                
+            }
+         }
+    }
+    func getPartners() {
+        let partners_URL = "/api/partners"
+        
+        sessionManager.request(BASE_APP_URL+partners_URL ).responseJSON { (response: DataResponse<Any>) in
+            print("======== get Partners() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            print("Response: \(String(describing: response))") // http url response
+            
+            print("error: \(String(describing: response.error))")
+            print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let partners = try JSONDecoder().decode([Partner].self, from: response.data!)
+                    print ("partners: \(String(describing:partners))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(partners, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(partners_URL)")
+                print(response.error!)
+                
+            }
+        }
+
+        
+    }
+/*
     func doLogin ( completionHandler: @escaping (String? ,String?, Bool?) -> ())  {
         
         let login_URL = "\(BASE_APP_URL)/api/login"
+        
+        // username and password should be pulled from the settings
         let credentials: [String: Any] = ["username": username.lowercased(), "password": password]
 
 
@@ -205,5 +309,7 @@ extension AppDelegate {
             }
         }
     }
+  */
 }
+
 

@@ -69,20 +69,7 @@ class User : Object , Uploadable{
         }
     }
     
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.username =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.password =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.client = (json["client"].null == NSNull()) ? nil : Partner(from: json["client"])
-        self.email =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.firstName =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.lastName =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.personNumber =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.costCenter   = (json["costCenter"].null == NSNull()) ? nil : Partner(from: json["costCenter"])
-       // self.trips = trips
-   
-    }
+  
     
 
 }

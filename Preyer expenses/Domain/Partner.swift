@@ -36,25 +36,52 @@ class Partner : Object , Uploadable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
+   do {
+    id = try container.decode(Int.self, forKey: .id)
+
         par = try container.decode(String.self, forKey: .par)
-        name = try container.decode(String.self, forKey: .name)
-        payor = try container.decode(Bool.self, forKey: .payor)
-        client = try container.decode(Bool.self, forKey: .client)
-        costCenter = try container.decode(Bool.self, forKey: .costCenter)
-        hidden = try container.decode(Bool.self, forKey: .hidden)
   
+        name = try container.decode(String.self, forKey: .name)
+        
+        let booltypes = ["TRUE","1"]
+        
+        if let payorBool = try? container.decode(Bool.self, forKey: .payor) {
+            payor = payorBool
+        } else {
+            
+            let payorString = try container.decode(String.self, forKey: .payor)
+            print("String: \(payorString)")
+            payor = booltypes.contains(payorString.uppercased())
+        }
+ 
+        if let clientBool = try? container.decode(Bool.self, forKey: .client) {
+            client = clientBool
+        } else {
+            let clientString = try container.decode(String.self, forKey: .client)
+            client = booltypes.contains(clientString.uppercased())
+        }
+        
+        if let costCenterBool = try? container.decode(Bool.self, forKey: .costCenter) {
+            costCenter = costCenterBool
+        } else {
+            let costCenterString = try container.decode(String.self, forKey: .costCenter)
+            costCenter = booltypes.contains(costCenterString.uppercased())
+            
+        }
+        
+        if let hiddenBool = try? container.decode(Bool.self, forKey: .hidden) {
+            hidden = hiddenBool
+        } else {
+            let hiddenString = try container.decode(String.self, forKey: .hidden)
+            hidden = booltypes.contains(hiddenString.uppercased())
+        }
+        
+  } catch let jsonErr {
+    print("Error: ", jsonErr)
+        }
+
     }
     
-    convenience init(from json: JSON) {
-        self.init()
-        self.id =  json["id"].int!
-        self.par = (json["par"].null == NSNull()) ? String(): json["par"].string!
-        self.name  = (json["name"].null == NSNull()) ? String() : json["name"].string!
-        self.payor  = (json["payor"].null == NSNull()) ? false : json["payor"].bool!
-        self.client  = (json["client"].null == NSNull()) ? false : json["client"].bool!
-        self.costCenter   = (json["costCenter"].null == NSNull()) ? false : json["costCenter"].bool!
-        self.hidden   = (json["hidden"].null == NSNull()) ? false : json["hidden"].bool!
-    }
+    
     
 }

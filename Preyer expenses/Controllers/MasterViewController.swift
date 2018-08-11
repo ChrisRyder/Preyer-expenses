@@ -140,16 +140,9 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         let fromDate : String = formatter.string(from: trip.beginning!)
         formatter.dateFormat = "MM.dd"
         let toDate : String = formatter.string(from: trip.ending!)
-        var payorName : String = "No Payor"
-     //   if let payorIndex = trip.payor {
-     //       if (payorIndex > 0 && payors.count > 0) {
-     //           let payor : Partner = payors.lazy.filter( {return $0.id == payorIndex }).first!
-     //           payorName = payor.name
-     //       } else {
-     //           payorName = "0 Payor"
-     //       }
-      //  }
-        
+        let payor = self.realm.object(ofType: Partner.self, forPrimaryKey: trip.payor)
+        let payorName : String = payor?.name ?? "No Payor"
+     
         cell.textLabel?.text! =  "\(fromDate) - \(toDate) :  \(payorName)"
         cell.detailTextLabel?.text! = trip.reason
         return cell
@@ -217,107 +210,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         // TODO else display warning ask again
     }
     
-    func doLogin (username: String, password: String)  {
-        let credentials: [String: Any] = ["username": username, "password": password]
-        print(credentials)
-        Alamofire.request(BASE_APP_URL+login_URL, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseJSON  { response in
-                      print("Request: \(String(describing: response.request))")   // original url request
-                        print("Response: \(String(describing: response.response))") // http url response
-                       print("Result: \(response.result)")                         // response serialization result
-            guard response.result.error == nil else {
-                // got an error in getting the data, need to handle it
-                print("error calling POST on /api/login")
-                print(response.result.error!)
-                return
-            }
-            // make sure we got some JSON since that's what we expect
-            guard let json = response.result.value as? [String: Any] else {
-                print("didn't get user object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
-                return
-            }
-            // get and print the title
-            guard let accessToken = json["access_token"] as? String else {
-                print("Could not get access_token number from JSON")
-                return
-            }
-            guard let refreshToken = json["refresh_token"] as? String else {
-                print("Could not get refresh_token number from JSON")
-                return
-            }
-            token = accessToken
-            refresh_token = refreshToken
 
-            print ("AccessToken: \(accessToken)")
-            print ("refreshToken: \(refreshToken)")
-            print("logon successful")
-  /*
-            if countries.count == 0 {
-                self.getCountries()
-            }
-            if payors.count == 0 {
-                self.getPayors()
-            }
-            if self.trips.count == 0 {
-                self.getTrips()
-            }
-             */
-        }
-        
-    }
-    
-    func doReAuthorize ()  {
-        let rest_auth = "/oauth/access_token"
-        let params : [String: Any] = ["grant_type": "refresh_token", "refresh_token": refresh_token]
-        Alamofire.request(BASE_APP_URL+rest_auth, method: .post, parameters: params).responseJSON  { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            guard response.result.error == nil else {
-                // got an error in getting the data, need to handle it
-                print("error calling POST on \(rest_auth)")
-                print(response.result.error!)
-                return
-            }
-            // make sure we got some JSON since that's what we expect
-            guard let json = response.result.value as? [String: Any] else {
-                print("didn't get user object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
-                return
-            }
-            // get and print the title
-            guard let accessToken = json["access_token"] as? String else {
-                print("Could not get access_token number from JSON")
-                return
-            }
-            guard let refreshToken = json["refresh_token"] as? String else {
-                print("Could not get refresh_token number from JSON")
-                return
-            }
-            token = accessToken
-            refresh_token = refreshToken
-            
-            print ("AccessToken: \(accessToken)")
-            print ("refreshToken: \(refreshToken)")
-            print("logon successful")
-            /*
-            if countries.count == 0 {
-                self.getCountries()
-            }
-            if payors.count == 0 {
-                self.getPayors()
-            }
-            if self.trips.count == 0 {
-                self.getTrips()
-            }
-             */
-        }
-        
-    }
     
   /*
     func getTrips() {
@@ -366,48 +259,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         
     }
     
-    func getCountries() {
-        let countries_URL = "/api/countries"
-        let headers = [
-            "Authorization": "Bearer \(token)",
-            "Content-Type": "application/X-Access-Token"
-        ]
-        Alamofire.request(BASE_APP_URL+countries_URL , headers: headers).responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            print("Result: \(String(describing: response.result.value))")                         // response serialization result
-            guard response.result.error == nil else {
-                print("error calling GET on \(countries_URL)")
-                print(response.result.error!)
-                return
-                
-            }
-            // make sure we got some JSON since that's what we expect
-            guard let json = response.result.value else {
-                print("countries: didn't get object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
-                return
-            }
-            print("JSON: \(json)") // serialized json response
-            let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
-            if jsonError == "Unauthorized" || jsonError == "500" {
-                print("JSON: \(json)") // serialized json response
-                return
-            }
-       
-            for (_,subJson):(String, JSON) in JSON(json) {
-                let country = Country(json: subJson)
-                countries.append(country)
-            }
-            
-            
-        }
-        
-    }
+ 
     func getPartners(url: String) {
 
         let headers = [
@@ -452,47 +304,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         }
         
     }
-    func getPayors() {
-        let payors_URL = "/api/partners/findAllByPayor"
-        let headers = [
-            "Authorization": "Bearer \(token)",
-            "Content-Type": "application/X-Access-Token"
-        ]
-        print (headers)
-        Alamofire.request(BASE_APP_URL+payors_URL , headers: headers).responseJSON { response in
-           print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-            guard response.result.error == nil else {
-                print("error calling GET on \(payors_URL)")
-                print(response.result.error!)
-                return
-                
-            }
-            
-            guard let json = response.result.value else {
-                print("Payors: didn't get object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
-                return
-            }
-            print("JSON: \(json)") // serialized json response
-            let jsonError=JSON(json)["error"]
-            print("\(jsonError)")
-            if jsonError == "Unauthorized" || jsonError == "500" {
-                print("JSON: \(json)") // serialized json response
-                return
-            }
-            for (_,subJson):(String, JSON) in JSON(json) {
-                let partner : Partner = Partner(id: subJson["id"].int!, par: subJson["par"].string!, name: subJson["name"].string!,payor: subJson["payor"].bool!, client: subJson["client"].bool!, costCenter: subJson["costCenter"].bool!)
-                
-                payors.append(partner)
-                
-            }
-           
-            
-        }
+ 
         
     }
  */

@@ -27,17 +27,36 @@ class Reduction: Object, Uploadable {
         return URL(string: "\(BASE_APP_URL)/api/reductions")!
     }
     
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.rdnDate = (json["rdnDate"].null == NSNull()) ? nil : json["rdnDate"].date!
-        self.breakfast = (json["breakfast"].null == NSNull()) ? false : json["breakfast"].bool!
-        self.lunch = (json["lunch"].null == NSNull()) ? false : json["lunch"].bool!
-        self.dinner = (json["dinner"].null == NSNull()) ? false : json["dinner"].bool!
-        self.receipt = (json["receipt"].null == NSNull()) ? nil : Receipt(from: json["receipt"])
-        self.reductionType = (json["reductionType"].null == NSNull()) ? nil : ReductionType(from: json["reductionType"])
+    private enum CodingKeys: String, CodingKey {
+        case id, rdnDate, breakfast,lunch,dinner,receipt,reductionType
     }
-        
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(rdnDate, forKey: .rdnDate)
+        try container.encode(breakfast, forKey: .breakfast)
+        try container.encode(lunch, forKey: .lunch)
+        try container.encode(dinner, forKey: .dinner)
+        try container.encode(receipt, forKey: .receipt)
+        try container.encode(reductionType, forKey: .reductionType)
+    }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        rdnDate = try container.decode(Date.self, forKey: .rdnDate)
+         breakfast = try container.decode(Bool.self, forKey: .breakfast)
+        lunch = try container.decode(Bool.self, forKey: .lunch)
+        dinner = try container.decode(Bool.self, forKey: .dinner)
+        receipt = try container.decode(Receipt?.self, forKey: .receipt)
+        reductionType = try container.decode(ReductionType?.self, forKey: .reductionType)
+    }
+    
+    
+   
 }
     
 

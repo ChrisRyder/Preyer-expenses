@@ -17,49 +17,57 @@ class DetailViewController:  FormViewController {
 
     
     func configureView() {
-        // Update the user interface for the detail item.
-        //if let detail = detailItem {
-         //   if let label = detailDescriptionLabel {
-         //       label.text = detail.infoText
-         //   }
-         //   reasonLabel?.text! = detail.reason
-          //    }
+
      
         form +++ Section("Trip Details")
             <<< PickerInlineRow <String>() {
                 $0.title = "Payor:"
-     //           if let payorID = self.detailItem?.payor {
-                    
-     //               let payor : Partner = payors.lazy.filter( {return $0 == payorID }).first!
-     //               $0.value = "\(payor.name)"
-     //             }
-          //      let optionArray =
-          //          Array(payors.sorted().map { "\( $0.name)" })
-                //debugPrint(optionArray)
-            //    $0.options = optionArray
-
+                let payor = self.realm.object(ofType: Partner.self, forPrimaryKey: self.detailItem?.payor)
+                $0.value = payor?.name ?? ""
+                let optionArray = Array(realm.objects(Partner.self).filter("payor = true").sorted(byKeyPath: "name").map{ "\($0.name)" })
+                $0.options = optionArray
+                $0.onChange({ (row) in
+                    if row.value != nil {
+                        try! self.realm.write {
+                            print ("RowValue: \(row.value!)")
+                            let chosenPayor = self.realm.objects(Partner.self).filter("name = '\(row.value!)'").first
+                            print ("payor: \(String(describing: chosenPayor))")
+                            self.detailItem?.payor = (chosenPayor?.id)!
+                            print ("detailItem: \(String(describing: self.detailItem))")
+                            self.realm.add(self.detailItem!, update: true)
+                        }
+                    }
+                })
             }
             <<< PickerInlineRow <String>() {
                 $0.title = "Country:"
-         //       if let cntID = self.detailItem?.country  {
-             //       let cnty : Country = countries.lazy.filter( {return $0 == cntID }).first!
-              //      $0.value = "\(cnty.name)"
-          //       }
-           //     let optionArray =
-           //         Array(countries.sorted().map { "\($0)" })
-                //debugPrint(optionArray)
-        //        $0.options = optionArray
+                let country = self.realm.object(ofType: Country.self, forPrimaryKey: self.detailItem?.country)
+               
+                $0.value = country?.name
+                let optionArray = Array(realm.objects(Country.self).sorted(byKeyPath: "name").map{ "\($0.name)" })
+                $0.options = optionArray
+                $0.onChange({ (row) in
+                     if row.value != nil {
+                        try! self.realm.write {
+                            print ("RowValue: \(row.value!)")
+                            let chosenCountry = self.realm.objects(Country.self).filter("name = '\(row.value!)'").first
+                            print ("Country: \(String(describing: chosenCountry))")
+                            self.detailItem?.country = (chosenCountry?.id)!
+                            print ("detailItem: \(String(describing: self.detailItem))")
+                            self.realm.add(self.detailItem!, update: true)
+                        }
+                    }
+                })
             }
             <<< TextRow(){
                 $0.title = "infoText:"
                 $0.placeholder =  "Enter text here"
                 $0.value = self.detailItem?.infoText
                 $0.onChange({ (row) in
-                    let rlm = try! Realm()
                     if row.value != nil {
-                        try! rlm.write {
+                        try! self.realm.write {
                             self.detailItem?.infoText = row.value!
-                            rlm.add(self.self.detailItem!, update: true)
+                            self.realm.add(self.detailItem!, update: true)
                         }
                     }
                 })
@@ -71,11 +79,10 @@ class DetailViewController:  FormViewController {
                 $0.placeholder =  "Enter text here"
                 $0.value = self.detailItem?.reason 
                 $0.onChange({ (row) in
-                    let rlm = try! Realm()
-                    if row.value != nil {
-                        try! rlm.write {
+                     if row.value != nil {
+                        try! self.realm.write {
                             self.detailItem?.reason = row.value!
-                            rlm.add(self.self.detailItem!, update: true)
+                            self.realm.add(self.detailItem!, update: true)
                         }
                     }
                 })
@@ -88,10 +95,9 @@ class DetailViewController:  FormViewController {
                 $0.value = self.detailItem?.beginning ?? Date(timeIntervalSinceReferenceDate: 0)
                 $0.onChange { [unowned self] row in
                     if let date = row.value {
-                         let rlm = try! Realm()
-                         try! rlm.write {
+                          try! self.realm.write {
                             self.detailItem?.beginning = date
-                            rlm.add(self.self.detailItem!, update: true)
+                            self.realm.add(self.self.detailItem!, update: true)
                         }
                     }
                 }
@@ -101,10 +107,9 @@ class DetailViewController:  FormViewController {
                 $0.value = self.detailItem?.ending ?? Date(timeIntervalSinceReferenceDate: 0)
                 $0.onChange { [unowned self] row in
                     if let date = row.value {
-                        let rlm = try! Realm()
-                        try! rlm.write {
+                        try! self.realm.write {
                             self.detailItem?.ending = date
-                           rlm.add(self.self.detailItem!, update: true)
+                           self.realm.add(self.self.detailItem!, update: true)
                         }
                     }
                 }

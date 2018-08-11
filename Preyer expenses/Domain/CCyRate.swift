@@ -41,6 +41,32 @@ class CcyRate: Object ,Uploadable  {
         self.comment =  (json["comment"].null == NSNull()) ? String() : json["comment"].string!
     }
     
- 
+    private enum CodingKeys: String, CodingKey {
+        case id, cur1, cur2,rate,name,comment  }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(cur1, forKey: .cur1)
+        try container.encode(cur2, forKey: .cur2)
+        try container.encode(rate, forKey: .rate)
+        try container.encode(name, forKey: .name)
+        try container.encode(comment, forKey: .comment)
+        
+        
+    }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        cur1 = try container.decode(Currency?.self, forKey: .cur1)
+        cur2 = try container.decode(Currency?.self, forKey: .cur2)
+        rate = try container.decode(Float.self, forKey: .rate)
+        name = try container.decode(String.self, forKey: .name)
+        comment = try container.decode(String.self, forKey: .comment)
+        
+    }
 }
 
