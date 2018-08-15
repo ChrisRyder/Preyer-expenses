@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
@@ -24,18 +25,18 @@ class TravelCost: Object , Uploadable{
     //    var indRefund : Float
     @objc dynamic var infoText : String = String()
     @objc dynamic var noPaying : Bool = false
-    var vehicle : Vehicle?
+    @objc dynamic var vehicle : Int = 0
     
     override static func primaryKey() -> String? {
         return "id"
     }
     
     static var resourceURL: URL {
-        return URL(string: "\(BASE_APP_URL)/api/travelcosts")!
+        return URL(string: "\(BASE_APP_URL)/api/TravelCosts")!
     }
     
     private enum CodingKeys: String, CodingKey {
-        case id, route, rentalCar,train,airplane,kmTraveler,noPaying,vehicle
+        case id, route, rentalCar,train,airplane,kmTraveler,noPaying,vehicle = "vehicles"
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -55,30 +56,63 @@ class TravelCost: Object , Uploadable{
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        _ = Refer()
         id = try container.decode(Int.self, forKey: .id)
-        route = try container.decode(String.self, forKey: .route)
-        rentalCar = try container.decode(Bool.self, forKey: .rentalCar)
-        train = try container.decode(Bool.self, forKey: .train)
-        airplane = try container.decode(Bool.self, forKey: .airplane)
+        route = try container.decodeIfPresent(String.self, forKey: .route) ?? ""
+        rentalCar = try container.decodeIfPresent(Bool.self, forKey: .rentalCar) ?? false
+        train = try container.decodeIfPresent(Bool.self, forKey: .train) ?? false
+        airplane = try container.decodeIfPresent(Bool.self, forKey: .airplane) ?? false
         kmTraveler = try container.decode(Int.self, forKey: .kmTraveler)
-        noPaying = try container.decode(Bool.self, forKey: .noPaying)
-        vehicle = try container.decode(Vehicle?.self, forKey: .vehicle)
+        noPaying = try container.decodeIfPresent(Bool.self, forKey: .noPaying) ?? false
+        let vehicleObj = try container.decode(Refer.self, forKey: .vehicle)
+        vehicle = vehicleObj.id
         
     }
     
-    
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.route = (json["route"].null == NSNull()) ? String() : json["route"].string!
-        self.rentalCar = (json["rentalCar"].null == NSNull()) ? false : json["rentalCar"].bool!
-        self.train = (json["train"].null == NSNull()) ? false : json["train"].bool!
-        self.airplane = (json["airplane"].null == NSNull()) ? false : json["airplane"].bool!
-        self.kmTraveler = (json["kmTraveler"].null == NSNull()) ? 0 : json["kmTraveler"].int!
-        self.infoText = (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.noPaying = (json["noPaying"].null == NSNull()) ? false : json["noPaying"].bool!
-        self.vehicle = (json["vehicle"].null == NSNull()) ? nil : Vehicle(from: json["vehicle"])
+    static func getList() {
         
+        sessionManager.request(resourceURL).responseJSON { (response: DataResponse<Any>) in
+            print("======== TravelCost.getList() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            
+      //      print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+        //    print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let objList = try JSONDecoder().decode([TravelCost].self, from: response.data!)
+      //              print ("TravelCosts: \(String(describing:objList))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(objList, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
     }
 
 }

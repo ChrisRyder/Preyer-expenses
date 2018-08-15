@@ -12,7 +12,9 @@ import Alamofire
 
 
 
+
 class AuthHandler: RequestAdapter, RequestRetrier {
+
     private typealias RefreshCompletion = (_ succeeded: Bool, _ accessToken: String?, _ refreshToken: String?) -> Void
     
     private let sessionManager: SessionManager = {
@@ -29,6 +31,7 @@ class AuthHandler: RequestAdapter, RequestRetrier {
     private var baseURLString: String
     private var accessToken: String
     private var refreshToken: String
+    var credentials: [String: Any] = [:]
     
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []
@@ -41,14 +44,17 @@ class AuthHandler: RequestAdapter, RequestRetrier {
         self.baseURLString = baseURLString
         self.accessToken = accessToken
         self.refreshToken = refreshToken
+        self.credentials =  ["username": username.lowercased(), "password": password]
     }
     
+
     // MARK: - RequestAdapter
     
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(baseURLString) {
             var urlRequest = urlRequest
-            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            urlRequest.setValue("Bearer " + self.accessToken, forHTTPHeaderField: "Authorization")
+            //print("Bearer " + self.accessToken)
             return urlRequest
         }
         
@@ -64,24 +70,28 @@ class AuthHandler: RequestAdapter, RequestRetrier {
             requestsToRetry.append(completion)
             
             if !isRefreshing {
-                refreshTokens { [weak self] succeeded, accessToken, refreshToken in
-                    guard let strongSelf = self else { return }
-                    
-                    strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
-                    
-                    if let accessToken = accessToken, let refreshToken = refreshToken {
-                        strongSelf.accessToken = accessToken
-                        strongSelf.refreshToken = refreshToken
+                    refreshTokens { [weak self] succeeded, accessToken, refreshToken in
+                        guard let strongSelf = self else { return }
+                        
+                        strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
+                        
+                        if let accessToken = accessToken, let refreshToken = refreshToken {
+                            strongSelf.accessToken = accessToken
+                            strongSelf.refreshToken = refreshToken
+                        }
+                        
+                        strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
+                        strongSelf.requestsToRetry.removeAll()
                     }
-                    
-                    strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
-                    strongSelf.requestsToRetry.removeAll()
-                }
             }
+           
         } else {
             completion(false, 0.0)
         }
     }
+    
+   
+    
     
     // MARK: - Private - Refresh Tokens
     
@@ -116,4 +126,7 @@ class AuthHandler: RequestAdapter, RequestRetrier {
                 strongSelf.isRefreshing = false
         }
     }
+    
+
+
 }

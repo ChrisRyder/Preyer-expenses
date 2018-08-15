@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
@@ -20,7 +21,7 @@ class ReductionType: Object, Uploadable {
     }
     
     static var resourceURL: URL {
-        return URL(string: "\(BASE_APP_URL)/api/reductiontypes")!
+        return URL(string: "\(BASE_APP_URL)/api/reductionTypes")!
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -44,12 +45,50 @@ class ReductionType: Object, Uploadable {
         
     }
     
-    
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.rdn = (json["rdn"].null == NSNull()) ? String(): json["rdn"].string!
-        self.name = (json["name"].null == NSNull()) ? String(): json["name"].string!
+    static func getList() {
+        
+        sessionManager.request(resourceURL).responseJSON { (response: DataResponse<Any>) in
+            print("======== ReductionType() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            
+           // print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+            //print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let objList = try JSONDecoder().decode([ReductionType].self, from: response.data!)
+                    //print ("ReductionTypeList: \(String(describing:objList))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(objList, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
     }
 }
 

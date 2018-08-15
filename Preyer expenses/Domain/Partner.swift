@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
@@ -36,52 +37,66 @@ class Partner : Object , Uploadable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-   do {
-    id = try container.decode(Int.self, forKey: .id)
 
+        id = try container.decode(Int.self, forKey: .id)
         par = try container.decode(String.self, forKey: .par)
-  
         name = try container.decode(String.self, forKey: .name)
+        payor = try container.decodeIfPresent(Bool.self, forKey: .payor) ?? false
+        client = try container.decodeIfPresent(Bool.self, forKey: .client) ?? false
+        costCenter = try container.decodeIfPresent(Bool.self, forKey: .costCenter) ?? false
+        hidden = try container.decodeIfPresent(Bool.self, forKey: .hidden) ?? false
+    
         
-        let booltypes = ["TRUE","1"]
-        
-        if let payorBool = try? container.decode(Bool.self, forKey: .payor) {
-            payor = payorBool
-        } else {
-            
-            let payorString = try container.decode(String.self, forKey: .payor)
-            print("String: \(payorString)")
-            payor = booltypes.contains(payorString.uppercased())
-        }
- 
-        if let clientBool = try? container.decode(Bool.self, forKey: .client) {
-            client = clientBool
-        } else {
-            let clientString = try container.decode(String.self, forKey: .client)
-            client = booltypes.contains(clientString.uppercased())
-        }
-        
-        if let costCenterBool = try? container.decode(Bool.self, forKey: .costCenter) {
-            costCenter = costCenterBool
-        } else {
-            let costCenterString = try container.decode(String.self, forKey: .costCenter)
-            costCenter = booltypes.contains(costCenterString.uppercased())
-            
-        }
-        
-        if let hiddenBool = try? container.decode(Bool.self, forKey: .hidden) {
-            hidden = hiddenBool
-        } else {
-            let hiddenString = try container.decode(String.self, forKey: .hidden)
-            hidden = booltypes.contains(hiddenString.uppercased())
-        }
-        
-  } catch let jsonErr {
-    print("Error: ", jsonErr)
-        }
+
 
     }
     
-    
+    static func getList() {
+        
+        sessionManager.request(resourceURL).responseJSON { (response: DataResponse<Any>) in
+            print("======== get Partners() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+ //           print("Response: \(String(describing: response))") // http url response
+            
+            print("error: \(String(describing: response.error))")
+          //  print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let objList = try JSONDecoder().decode([Partner].self, from: response.data!)
+                    //print ("partners: \(String(describing:objList))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(objList, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
+        
+        
+    }
     
 }

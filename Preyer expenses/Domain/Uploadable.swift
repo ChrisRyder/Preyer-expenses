@@ -33,6 +33,25 @@ extension Object {
     
 }
 
+
+extension JSON {
+    public var date: Date? {
+        get {
+            if let str = self.string {
+                return JSON.jsonDateFormatter.date(from: str)
+            }
+            return nil
+        }
+    }
+    
+    private static let jsonDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        return dateFormatter
+    }()
+}
+
 extension Uploadable where Self: Object {
     func getId() -> String {
         guard let primaryKey = type(of: self).primaryKey() else {
@@ -46,19 +65,7 @@ extension Uploadable where Self: Object {
         return String(describing: id)
     }
     
-    //func encoded(using jsonEncoder : JSONEncoder = JSONEncoder()) -> Data? {
-    //    return try? jsonEncoder.encode(self)
-   // }
-    
-    func toJSON() {
-        let mirrored_object = Mirror(reflecting: self)
-        
-        for (index, attr) in mirrored_object.children.enumerated() {
-            if let propertyName = attr.label as String? {
-                print("Attr \(index): \(propertyName) = \(attr.value)")
-            }
-        }
-    }
+  
     
     func encoded(using jsonEncoder: JSONEncoder = JSONEncoder()) -> Data? {
         jsonEncoder.dateEncodingStrategy = .iso8601

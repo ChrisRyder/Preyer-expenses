@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
@@ -16,8 +17,8 @@ class Reduction: Object, Uploadable {
     @objc dynamic var breakfast : Bool = false
     @objc dynamic var lunch : Bool = false
     @objc dynamic var dinner : Bool = false
-    var receipt : Receipt?
-    var reductionType : ReductionType?
+    @objc dynamic var receipt : Int = 0
+    @objc dynamic var reductionType : Int = 0
     
     override static func primaryKey() -> String? {
         return "id"
@@ -33,13 +34,16 @@ class Reduction: Object, Uploadable {
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
+        let referObj = Refer()
+       try container.encode(id, forKey: .id)
         try container.encode(rdnDate, forKey: .rdnDate)
         try container.encode(breakfast, forKey: .breakfast)
         try container.encode(lunch, forKey: .lunch)
         try container.encode(dinner, forKey: .dinner)
-        try container.encode(receipt, forKey: .receipt)
-        try container.encode(reductionType, forKey: .reductionType)
+        referObj.id = self.receipt
+        try container.encode(referObj, forKey: .receipt)
+        referObj.id = self.reductionType
+        try container.encode(referObj, forKey: .reductionType)
     }
     
     
@@ -51,10 +55,59 @@ class Reduction: Object, Uploadable {
          breakfast = try container.decode(Bool.self, forKey: .breakfast)
         lunch = try container.decode(Bool.self, forKey: .lunch)
         dinner = try container.decode(Bool.self, forKey: .dinner)
-        receipt = try container.decode(Receipt?.self, forKey: .receipt)
-        reductionType = try container.decode(ReductionType?.self, forKey: .reductionType)
+        let receiptReferObj = try container.decode(Refer.self, forKey: .receipt)
+        receipt = receiptReferObj.id
+        let reductionTypeReferObj = try container.decode(Refer.self, forKey: .reductionType)
+        reductionType = reductionTypeReferObj.id
+
+       
     }
     
+    static func getList() {
+        
+        sessionManager.request(resourceURL).responseJSON { (response: DataResponse<Any>) in
+            print("======== Reduction.getList() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            
+            print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+            print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let objList = try JSONDecoder().decode([Reduction].self, from: response.data!)
+                    print ("Reductions: \(String(describing:objList))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(objList, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
+    }
     
    
 }

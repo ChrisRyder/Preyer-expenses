@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 
 import RealmSwift
@@ -64,13 +65,51 @@ class Country : Object , Uploadable {
         
     }
     
-    // Mark - decode
-     convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.cty = (json["cty"].null == NSNull()) ? "" : json["cty"].string!
-        self.name =  (json["name"].null == NSNull()) ? "" : json["name"].string!
+    static func getList() {
         
+        
+        sessionManager.request(resourceURL ).responseJSON { (response: DataResponse<Any>) in
+            print("======== getCountries() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            
+            //print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+            //print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let countries = try JSONDecoder().decode([Country].self, from: response.data!)
+                    //print ("countries: \(String(describing:countries))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(countries, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
     }
     
     

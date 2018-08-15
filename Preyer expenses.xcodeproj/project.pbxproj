@@ -101,7 +101,6 @@
 		8366A99120E4FA5C00C41254 /* TravelDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDay.swift; sourceTree = "<group>"; };
 		8366A99320E4FAC600C41254 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		83D11C272119BD5700BDAB08 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		83D11C2B211ACA9100BDAB08 /* Preyer expenses */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Preyer expenses"; sourceTree = "<group>"; };
 		83D11C3B211C287A00BDAB08 /* AuthorisationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorisationHandler.swift; sourceTree = "<group>"; };
 		B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesUITests/Pods-Preyer expensesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C60D250EF9C3EDC63A8EB9EF /* Pods-Preyer expenses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expenses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expenses/Pods-Preyer expenses.debug.xcconfig"; sourceTree = "<group>"; };
@@ -198,7 +197,6 @@
 				8338833720E4D74700FB9911 /* AppDelegate.swift */,
 				83D11C272119BD5700BDAB08 /* Constants.swift */,
 				8307F15A21120A39005096E9 /* Services */,
-				83D11C2B211ACA9100BDAB08 /* Preyer expenses */,
 				8366A98620E4D95000C41254 /* Views */,
 				8366A98520E4D93B00C41254 /* Controllers */,
 				8366A98420E4D93000C41254 /* Domain */,

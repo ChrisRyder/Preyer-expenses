@@ -12,38 +12,8 @@ import SwiftyJSON
 import RealmSwift
 
 
-extension JSON {
-    public var date: Date? {
-        get {
-            if let str = self.string {
-                return JSON.jsonDateFormatter.date(from: str)
-            }
-            return nil
-        }
-    }
-    
-    private static let jsonDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        return dateFormatter
-    }()
-}
-
-/*
-var countries = [Country]()
-var partners = [Partner]()
-var payors = [Partner]()
-*/
 
 
-let BASE_APP_URL = "http://127.0.0.1:8080"
-let APP_URL = "http://127.0.0.1:8080/api/trips"
-let trips_URL = "/api/trips"
-
-let partners_URL = "/api/partners"
-
-let login_URL = "/api/login"
 
 class MasterViewController: UITableViewController    {  //, LoginViewControllerDelegate
 
@@ -75,23 +45,12 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-         tableView.reloadData()
+        loadTrips()
         
   }
     override func viewDidAppear(_ animated: Bool) {
          super.viewDidAppear(animated)
- 
-/*
-        if refresh_token == "" {
-            let loginController = LoginViewController()
-            
-            loginController.delegate = self
-            
-            self.present(loginController, animated: true, completion: nil)
-        } else {
-            doReAuthorize()
-        }
- */
+        loadTrips()
  }
     
    
@@ -126,6 +85,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        trips = realm.objects(Trip.self)
         return trips.count //objects.count
     }
 
@@ -133,6 +93,7 @@ class MasterViewController: UITableViewController    {  //, LoginViewControllerD
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         // let object = objects[indexPath.row] as! NSDate
+        trips = realm.objects(Trip.self)
         let trip = trips[indexPath.row]
 
         let formatter = DateFormatter()

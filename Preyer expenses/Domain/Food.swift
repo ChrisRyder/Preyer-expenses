@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
@@ -15,14 +16,14 @@ class Food: Object, Uploadable {
     @objc dynamic var indRefund : Float = 0.0
     @objc dynamic var infoText : String = String()
     @objc dynamic var noPaying : Bool = false
-    var country : Country?
-    
+    @objc dynamic var country : Int = 0
+
     override static func primaryKey() -> String? {
         return "id"
     }
     
     static var resourceURL: URL {
-        return URL(string: "\(BASE_APP_URL)/api/food")!
+        return URL(string: "\(BASE_APP_URL)/api/Food")!
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -30,12 +31,13 @@ class Food: Object, Uploadable {
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        let referObj = Refer()
         try container.encode(id, forKey: .id)
         try container.encode(indRefund, forKey: .indRefund)
         try container.encode(infoText, forKey: .infoText)
         try container.encode(noPaying, forKey: .noPaying)
-        try container.encode(country, forKey: .country)
-        
+        referObj.id = self.country
+        try container.encode(referObj, forKey: .country)
         
     }
     
@@ -47,19 +49,54 @@ class Food: Object, Uploadable {
         indRefund = try container.decode(Float.self, forKey: .indRefund)
         infoText = try container.decode(String.self, forKey: .infoText)
         noPaying = try container.decode(Bool.self, forKey: .noPaying)
-        country = try container.decode(Country?.self, forKey: .country)
-        
+        let countryReferObj = try container.decode(Refer.self, forKey: .country)
+        country = countryReferObj.id
     }
     
-    // Mark - decode
-    convenience init(from json: JSON) {
-        self.init()
-        self.id = json["id"].int!
-        self.indRefund = (json["indRefund"].null == NSNull()) ? 0.0: json["indRefund"].float!
-        self.infoText =  (json["infoText"].null == NSNull()) ? String() : json["infoText"].string!
-        self.noPaying  = (json["noPaying"].null == NSNull()) ? false : json["noPaying"].bool!
-        self.country  = (json["countries"].null == NSNull()) ? nil : Country(from: json["countries"])
+    static func getList() {
         
+        sessionManager.request(resourceURL).responseJSON { (response: DataResponse<Any>) in
+            print("======== Food.getList() ===========")
+            print("Request: \(String(describing: response.request))")   // original url request
+            
+   //         print("Response: \(String(describing: response))") // http url response
+            print("error: \(String(describing: response.error))")
+   //         print("value: \(String(describing: response.value))")
+            
+            if response.error == nil {
+                print("Result: \(String(describing: response.result))")  // response serialization result
+                
+                do {
+                    let objList = try JSONDecoder().decode([Food].self, from: response.data!)
+      //             print ("Food: \(String(describing:objList))")
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(objList, update: true)
+                    }
+                    
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+                
+            }
+            else  {
+                print("error calling GET on \(resourceURL)")
+                print(response.error!)
+                
+            }
+        }
     }
     
 }

@@ -10,10 +10,18 @@ import Foundation
 
 var username : String = ""
 var password : String = ""
-var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
+let BASE_APP_URL = "http://127.0.0.1:8080"
+
+//var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
 var token : String =  ""
 var refresh_token : String = ""
 
+//et APP_URL = "http://127.0.0.1:8080/api/trips"
+//let trips_URL = "/api/trips"
+//let partners_URL = "/api/partners"
+
+let login_URL = "/api/login"
+/*
 struct K {
     struct ProductionServer {
         static let baseURL : String = "http://127.0.0.1:8080/api/"
@@ -28,7 +36,7 @@ struct K {
         static let token = "token"
     }
 }
-
+*/
 enum HTTPHeaderField: String {
     case authentication = "Authorization"
     case contentType = "Content-Type"
