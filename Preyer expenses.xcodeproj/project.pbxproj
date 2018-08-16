@@ -39,6 +39,7 @@
 		8366A99020E4F9F600C41254 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A98F20E4F9F600C41254 /* Receipt.swift */; };
 		8366A99220E4FA5C00C41254 /* TravelDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99120E4FA5C00C41254 /* TravelDay.swift */; };
 		8366A99420E4FAC600C41254 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366A99320E4FAC600C41254 /* User.swift */; };
+		83908FE7212564DE00A09508 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83908FE6212564DE00A09508 /* Settings.bundle */; };
 		83D11C282119BD5800BDAB08 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D11C272119BD5700BDAB08 /* Constants.swift */; };
 		83D11C3C211C287A00BDAB08 /* AuthorisationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D11C3B211C287A00BDAB08 /* AuthorisationHandler.swift */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,7 @@
 		8366A98F20E4F9F600C41254 /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		8366A99120E4FA5C00C41254 /* TravelDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDay.swift; sourceTree = "<group>"; };
 		8366A99320E4FAC600C41254 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		83908FE6212564DE00A09508 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83D11C272119BD5700BDAB08 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83D11C3B211C287A00BDAB08 /* AuthorisationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorisationHandler.swift; sourceTree = "<group>"; };
 		B3A46E79AA0CDA2350F09A63 /* Pods-Preyer expensesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Preyer expensesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Preyer expensesUITests/Pods-Preyer expensesUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		8338832B20E4D74700FB9911 = {
 			isa = PBXGroup;
 			children = (
+				83908FE6212564DE00A09508 /* Settings.bundle */,
 				8338833620E4D74700FB9911 /* Preyer expenses */,
 				8338834D20E4D74800FB9911 /* Preyer expensesTests */,
 				8338835820E4D74800FB9911 /* Preyer expensesUITests */,
@@ -377,6 +380,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83908FE7212564DE00A09508 /* Settings.bundle in Resources */,
 				8338834420E4D74800FB9911 /* LaunchScreen.storyboard in Resources */,
 				8338834120E4D74800FB9911 /* Assets.xcassets in Resources */,
 				8338833F20E4D74700FB9911 /* Main.storyboard in Resources */,

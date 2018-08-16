@@ -10,7 +10,7 @@ import Foundation
 
 var username : String = ""
 var password : String = ""
-let BASE_APP_URL = "http://127.0.0.1:8080"
+var BASE_APP_URL : String = "http://127.0.0.1:8080"
 
 //var API : URL = URL(string: "http://127.0.0.1:8080/api/")!
 var token : String =  ""

@@ -26,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        _ = try! Realm()
+        UserDefaults.standard.register(defaults: [String : Any]())
+        let realm = try! Realm()
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
             // version (if you've never set a schema version before, the version is 0).
@@ -45,8 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
-        print("Realm: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))") 
-        doLogin (username: "Cryder", password: "Objects2012");
+        print("Realm: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))")
+        let userDefaults = UserDefaults.standard
+        username = userDefaults.string(forKey: "username_preference") ?? ""
+        password = userDefaults.string(forKey: "password_preference") ?? ""
+        BASE_APP_URL = userDefaults.string(forKey: "url_preference") ??  "http://127.0.0.1:8080"
+        doLogin (username: username, password: password);
  
         
         
